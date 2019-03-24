@@ -5,6 +5,7 @@ export default class extends Component{
 	render() {
 		console.log(this.props.plotData.data)
 			return (
+				<>
 				<XYPlot
 					width={300}
 					height={300}>
@@ -13,6 +14,7 @@ export default class extends Component{
 					<XAxis/>
 					<YAxis/>
 				</XYPlot>
+				</>
 			)
 	}
 	}

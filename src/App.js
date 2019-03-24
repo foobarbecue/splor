@@ -3,6 +3,7 @@
 import React, { Component } from 'react'
 import Csvdrop from './CsvDrop'
 import Plot from './Plot'
+import RVStyles from 'react-vis-styles'
 
 export default class extends Component{
 	constructor(){
@@ -21,6 +22,7 @@ export default class extends Component{
 		return (
 			<div>
 				Let's SPLOR!
+				<RVStyles />
 				<Csvdrop
 					onAddPlotData={this.addPlotData}
 				/>
