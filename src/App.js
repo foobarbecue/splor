@@ -1,8 +1,12 @@
-import React from "react";
+// import request from "superagent";
 
-export default () => (
-  <>
-    <h1>Welcome to React Parcel Micro App!</h1>
-    <p>Hard to get more minimal than this React app.</p>
-  </>
-);
+import React from 'react'
+import Csvdrop from './CsvDrop'
+
+export default () =>(
+	<div>
+		Let's SPLOR!
+		<Csvdrop/>
+	</div>
+	)
+
