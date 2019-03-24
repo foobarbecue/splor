@@ -12,6 +12,7 @@
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
     "react-dropzone": "^10.0.6",
+    "react-vis": "^1.11.6",
     "victory": "^32.1.0"
   },
   "devDependencies": {

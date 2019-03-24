@@ -8,7 +8,8 @@ export default function(props) {
 		for (const acceptedFile of acceptedFiles){
 			Papa.parse(acceptedFile, {
 				complete: props.onAddPlotData,
-				header: true
+				header: true,
+				dynamicTyping: true
 			})
 		}
 	},

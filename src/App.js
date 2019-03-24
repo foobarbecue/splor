@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react'
 import Csvdrop from './CsvDrop'
+import Plot from './Plot'
 
 export default class extends Component{
 	constructor(){
@@ -23,6 +24,13 @@ export default class extends Component{
 				<Csvdrop
 					onAddPlotData={this.addPlotData}
 				/>
+				{this.state.plotData.map((plotData, index) =>
+					<Plot
+						key={index}
+						plotData={plotData}
+					>
+					</Plot>
+				)}
 			</div>
 		)
 	}
