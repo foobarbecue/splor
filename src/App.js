@@ -20,8 +20,14 @@ export default class extends Component{
 
 	render(){
 		return (
-			<div>
-				Let's SPLOR!
+			<>
+				<h1>Let's SPLOR!</h1>
+			<div style={{
+				display: 'grid',
+				'grid-template-rows': '50% 50%',
+				'grid-template-columns': '50% 50%',
+				height: '100%'
+			}}>
 				<RVStyles />
 				<Csvdrop
 					onAddPlotData={this.addPlotData}
@@ -34,6 +40,7 @@ export default class extends Component{
 					</Plot>
 				)}
 			</div>
+				</>
 		)
 	}
 }
