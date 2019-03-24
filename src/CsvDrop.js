@@ -1,16 +1,14 @@
-import React, {useCallback} from 'react'
-import {useDropzone} from 'react-dropzone'
+import React, { Component, useCallback } from 'react'
+import { useDropzone } from 'react-dropzone'
 import Papa from 'papaparse'
 
-export default function () {
+export default function(props) {
 	const onDrop = useCallback(
 		acceptedFiles => {
 		for (const acceptedFile of acceptedFiles){
-			console.log(acceptedFile)
 			Papa.parse(acceptedFile, {
-				complete: (data)=>{
-					console.log(data)
-				}
+				complete: props.onAddPlotData,
+				header: true
 			})
 		}
 	},
