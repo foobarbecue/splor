@@ -34,7 +34,11 @@ export default function(props) {
 			{
 				isDragActive ?
 					<p>Ok leggo that mouse button now</p> :
-					<p>Drop it like it's plot</p>
+					<p>
+						<span style={{color:'grey'}}>(Drag and) </span>
+						drop it like it's plot
+						<span style={{color:'grey'}}> (or video.)</span>
+					</p>
 			}
 		</div>
 	)
