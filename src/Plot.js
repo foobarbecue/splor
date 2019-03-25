@@ -1,7 +1,7 @@
 import {FlexibleXYPlot, XAxis, YAxis, LineSeries} from 'react-vis'
 import React, { Component } from 'react'
 
-export default class extends Component{
+export default class Plot extends Component{
 	constructor(props){
 		super();
 		// React-vis wants objects with keys "x" and "y", so rename.
@@ -13,10 +13,14 @@ export default class extends Component{
 			}))
 	}
 
+	is_timeseries = () => (this.data[0]['x'] instanceof Date);
+
 	render() {
 			return (
 				<>
-				<FlexibleXYPlot>
+				<FlexibleXYPlot
+					xType={this.is_timeseries ? "time" : "linear"}
+				>
 					<LineSeries
 						data={this.data}/>
 					<XAxis title={this.props.plotData.meta.fields[0]}/>

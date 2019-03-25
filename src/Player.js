@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactPlayer from 'react-player'
 
-export default (props) => {
+export default function Player(props){
 		return (
 			<ReactPlayer
 				url={props.vidData}
