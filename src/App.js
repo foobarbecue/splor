@@ -9,8 +9,8 @@ import RVStyles from 'react-vis-styles'
 export default class extends Component{
 	constructor(){
 		super();
-		this.addPlotData = this.addPlotData.bind(this)
-		this.addVidData = this.addVidData.bind(this)
+		this.addPlotData = this.addPlotData.bind(this);
+		this.addVidData = this.addVidData.bind(this);
 		this.state = {plotData: [], vidData: []}
 	}
 

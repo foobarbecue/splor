@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import ReactPlayer from 'react-player'
 
 export default (props) => {
@@ -6,6 +6,8 @@ export default (props) => {
 			<ReactPlayer
 				url={props.vidData}
 				controls
+				height='100%'
+				width='100%'
 			/>
 		)
 }
