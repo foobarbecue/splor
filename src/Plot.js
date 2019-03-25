@@ -1,9 +1,9 @@
-import {FlexibleXYPlot, XAxis, YAxis, LineSeries} from 'react-vis'
+import {FlexibleXYPlot, XAxis, YAxis, LineSeries, Crosshair} from 'react-vis'
 import React, { Component } from 'react'
 
 export default class Plot extends Component{
 	constructor(props){
-		super();
+		super(props);
 		// React-vis wants objects with keys "x" and "y", so rename.
 		// Field names are still in props.plotData.meta.fields
 		this.data = props.plotData.data.map(
@@ -23,6 +23,9 @@ export default class Plot extends Component{
 				>
 					<LineSeries
 						data={this.data}/>
+					<Crosshair
+						values = {[{x:this.props.timeBar, y:0}]}
+					>test</Crosshair>
 					<XAxis title={this.props.plotData.meta.fields[0]}/>
 					<YAxis title={this.props.plotData.meta.fields[1]}/>
 				</FlexibleXYPlot>

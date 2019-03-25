@@ -11,7 +11,7 @@ export default class extends Component{
 		super();
 		this.addPlotData = this.addPlotData.bind(this);
 		this.addVidData = this.addVidData.bind(this);
-		this.state = {plotData: [], vidData: []}
+		this.state = {plotData: [], vidData: [], timebar: null}
 	}
 
 	addPlotData(newPlotData) {
@@ -46,6 +46,7 @@ export default class extends Component{
 					<Plot
 						key={index}
 						plotData={plotData}
+						timeBar={this.state.timeBar}
 					/>
 				)}
 				{this.state.vidData.map((vidData, index) =>
