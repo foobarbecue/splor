@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 import FileDrop from './FileDrop'
 import Plot from './Plot'
 import Player from 'react-player'
+import EventTimeline from './Timeline'
 import RVStyles from 'react-vis-styles'
 
 export default class extends Component{
@@ -72,6 +73,11 @@ export default class extends Component{
 						onSeek={this.setTimebar}
 					/>
 				)}
+				<EventTimeline
+					// Computes max and min times. Probably already calculated in the plot components. Optimise?
+					plotData={this.state.plotData}
+					vidData={this.state.vidData}
+				/>
 			</div>
 				</>
 		)
