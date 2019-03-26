@@ -11,6 +11,8 @@ export default class Plot extends Component{
 				x: row[props.plotData.meta.fields[0]],
 				y: row[props.plotData.meta.fields[1]]
 			}))
+
+		this.state = {startTime: this.data[0].x}
 	}
 
 	is_timeseries = () => (this.data[0]['x'] instanceof Date);
@@ -24,7 +26,7 @@ export default class Plot extends Component{
 					<LineSeries
 						data={this.data}/>
 					<Crosshair
-						values = {[{x:this.props.timeBar, y:0}]}
+						values = {[{x: (this.state.startTime.getTime() + this.props.timeBar * 1000), y:0}]}
 					>test</Crosshair>
 					<XAxis title={this.props.plotData.meta.fields[0]}/>
 					<YAxis title={this.props.plotData.meta.fields[1]}/>

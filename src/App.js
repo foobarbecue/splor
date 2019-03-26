@@ -3,13 +3,16 @@
 import React, { Component } from 'react'
 import FileDrop from './FileDrop'
 import Plot from './Plot'
-import Player from './Player'
+import Player from 'react-player'
 import RVStyles from 'react-vis-styles'
 
 export default class extends Component{
 	constructor(){
 		super();
-		this.state = {plotData: [], vidData: [], timeBar: null}
+		this.state = {
+			plotData: [], // A list of datasets to be plotted
+			vidData: [], // A list of video blobs to be shown in players
+			timeBar: null} // The current time, in seconds from the beginning of the first timeseries plot added
 	}
 
 	addPlotData = (newPlotData) => {
@@ -28,7 +31,11 @@ export default class extends Component{
 		this.setState(
 			{timeBar: datetime}
 		)
-	}
+	};
+
+	onVidProgress = (progressObj) => {
+		this.setTimebar(progressObj.playedSeconds)
+	};
 
 	render(){
 		return (
@@ -55,7 +62,12 @@ export default class extends Component{
 				{this.state.vidData.map((vidData, index) =>
 					<Player
 						key={index}
-						vidData={vidData}
+						url={vidData}
+						controls
+						height='100%'
+						width='100%'
+						onProgress={this.onVidProgress}
+						onSeek={this.setTimebar}
 					/>
 				)}
 			</div>
