@@ -40,13 +40,15 @@ export default class extends Component{
 	render(){
 		return (
 			<>
-				<h1>Let's SPLOR!</h1>
 			<div style={{
 				display: 'grid',
-				gridTemplateRows: '50% 50%',
-				gridTemplateColumns: '50% 50%',
+				gridTemplateRows: '1fr 4fr 4fr 2fr',
+				gridTemplateColumns: '1fr 1fr',
+				gridTemplateAreas:"'hdr hdr' 'NW NE' 'SW SE' 'timeline timeline'",
+
 				height: '100%'
 			}}>
+				<h1 style={{gridArea: "hdr"}}>Let's SPLOR!</h1>
 				<RVStyles />
 				<FileDrop
 					onAddPlotData={this.addPlotData}
