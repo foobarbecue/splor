@@ -9,23 +9,26 @@ import RVStyles from 'react-vis-styles'
 export default class extends Component{
 	constructor(){
 		super();
-		this.addPlotData = this.addPlotData.bind(this);
-		this.addVidData = this.addVidData.bind(this);
-		this.state = {plotData: [], vidData: [], timebar: null}
+		this.state = {plotData: [], vidData: [], timeBar: null}
 	}
 
-	addPlotData(newPlotData) {
+	addPlotData = (newPlotData) => {
 		this.setState(
 				{plotData: this.state.plotData.concat(newPlotData)}
 		)
-	}
+	};
 
-	addVidData(newVidData) {
+	addVidData = (newVidData) => {
 		this.setState(
 			{vidData: this.state.vidData.concat(newVidData)}
 		)
-	}
+	};
 
+	setTimebar = (datetime) => {
+		this.setState(
+			{timeBar: datetime}
+		)
+	}
 
 	render(){
 		return (
