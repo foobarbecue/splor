@@ -19,7 +19,8 @@ export default class Plot extends Component{
 
 	render() {
 			return (
-				<>
+				<div>
+					<h2>{this.props.plotData.fileName}</h2>
 				<FlexibleXYPlot
 					xType={this.is_timeseries ? "time" : "linear"}
 				>
@@ -31,7 +32,7 @@ export default class Plot extends Component{
 					<XAxis title={this.props.plotData.meta.fields[0]}/>
 					<YAxis title={this.props.plotData.meta.fields[1]}/>
 				</FlexibleXYPlot>
-				</>
+				</div>
 			)
 	}
 	}

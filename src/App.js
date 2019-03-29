@@ -16,7 +16,8 @@ export default class extends Component{
 			timeBar: null} // The current time, in seconds from the beginning of the first timeseries plot added
 	}
 
-	addPlotData = (newPlotData) => {
+	addPlotData = (newPlotData, file) => {
+		Object.assign(newPlotData, {fileName:file.name});
 		this.setState(
 				{plotData: this.state.plotData.concat(newPlotData)}
 		)
