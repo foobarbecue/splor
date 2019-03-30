@@ -6,16 +6,23 @@ import 'react-calendar-timeline/lib/Timeline.css'
 export default class EventTimeline extends Component{
 	constructor(props){
 		super(props);
+		this.state = {
+			visibleTimeStart: this.props.minTime,
+			visibleTimeEnd: this.props.maxTime,
+			items: []
+		}
 	}
 
-	getItems = () =>
-		this.props.plotData.map(
-		(dataForOnePlot) =>{
+	propsToItems = (props) =>{
+		const propsToUse = props || this.props;
+		return (
+		propsToUse.plotData.map(
+		(dataForOnePlot, index) =>{
 			const firstColName = dataForOnePlot.meta.fields[0];
 			const nRows = dataForOnePlot.data.length;
 			return(
 				{
-					id: 1,
+					id: index,
 					group: 1,
 					title: dataForOnePlot.fileName,
 					start_time: dataForOnePlot.data[0][firstColName],
@@ -23,43 +30,52 @@ export default class EventTimeline extends Component{
 				}
 			)
 		}
-	);
+	))};
 
-	getStartTimes = () => {
-		return this.props.plotData.map(
-			(dataForOnePlot) => {
-				const firstColName = dataForOnePlot.meta.fields[0];
-				return dataForOnePlot.data[0][firstColName]
+	getItemStartTimes = (items) => {
+		return items.map(
+			(item) => {
+				return item.start_time
 			}
-		)
+		).sort((item0, item1) => (item0 < item1) ? -1 : 1)
 	};
 
-	getEndTimes = () => {
-		return this.props.plotData.map(
-			(dataForOnePlot) => {
-				const firstColName = dataForOnePlot.meta.fields[0];
-				const nRows = dataForOnePlot.data.length;
-				return dataForOnePlot.data[nRows - 1][firstColName]
+	getItemEndTimes = (items) => {
+		return items.map(
+			(item) => {
+				return item.end_time
 			}
-		)
+		).sort((item0, item1) => (item0 > item1) ? -1 : 1)
 	};
+
+	handleTimeChange = (visibleTimeStart, visibleTimeEnd) => {
+		this.setState({visibleTimeStart, visibleTimeEnd})
+	};
+
+	componentWillReceiveProps(nextProps, nextContext) {
+	// If new components (plots or videos) were added we need to update the timeline
+		if (this.props.plotData.length < nextProps.plotData.length){
+			const items = this.propsToItems(nextProps);
+			const startTimes = this.getItemStartTimes(items);
+			const endTimes = this.getItemEndTimes(items);
+			this.setState({
+				visibleTimeStart: startTimes[0].getTime(),
+				visibleTimeEnd: endTimes[0].getTime(),
+				items: items
+			});
+		}
+	}
 
 	render(){
-		const items = this.getItems();
-		const startTimes = this.getStartTimes();
-		const startTime = startTimes.length > 0 ? this.getStartTimes()[0] : this.props.minTime;
-
-		const endTimes = this.getEndTimes();
-		const endTime = endTimes.length > 0 ? endTimes[endTimes.length -1] : this.props.maxTime;
-
 		return(
 			<Timeline
-				items={items}
+				items={this.state.items}
 				groups={[{ id: 1, title: 'Plots' }, { id: 2, title: 'Videos' }]}
-				visibleTimeStart={startTime.getTime()}
-				visibleTimeEnd={endTime.getTime()}
+				visibleTimeStart={this.state.visibleTimeStart}
+				visibleTimeEnd={this.state.visibleTimeEnd}
 				traditionalZoom={true}
 				style={{gridArea: 'timeline'}}
+				onTimeChange={this.handleTimeChange}
 			/>
 		)
 	}
