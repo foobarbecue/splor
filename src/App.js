@@ -8,12 +8,18 @@ import EventTimeline from './Timeline'
 import RVStyles from 'react-vis-styles'
 
 export default class extends Component{
-	constructor(){
+	constructor() {
 		super();
+		const now = new Date();
 		this.state = {
 			plotData: [], // A list of datasets to be plotted
 			vidData: [], // A list of video blobs to be shown in players
-			timeBar: null} // The current time, in seconds from the beginning of the first timeseries plot added
+			timeBar: null,
+			events: [
+				{time: new Date(now.getTime() - 24 * 1000 * 60 * 60), name: 'defaultStart'},  // prepopulate so the timeline doesn't freak out
+				{time: new Date(now.getTime() + 24 * 1000 * 60 * 60), name: 'defaultEnd'}
+			]
+		}
 	}
 
 	addPlotData = (newPlotData, file) => {
@@ -78,6 +84,8 @@ export default class extends Component{
 					// Computes max and min times. Probably already calculated in the plot components. Optimise?
 					plotData={this.state.plotData}
 					vidData={this.state.vidData}
+					minTime={this.state.events[0].time}
+					maxTime={this.state.events[this.state.events.length - 1].time}
 				/>
 			</div>
 				</>
