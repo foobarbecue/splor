@@ -12,7 +12,8 @@ export default function(props) {
 				Papa.parse(acceptedFile, {
 					complete: props.onAddPlotData,
 					header: true,
-					dynamicTyping: true
+					dynamicTyping: true,
+					skipEmptyLines: true
 				})
 			}
 			else {
