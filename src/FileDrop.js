@@ -1,29 +1,28 @@
-import React, { useCallback } from 'react'
-import { useDropzone } from 'react-dropzone'
+import React, {useCallback} from 'react'
+import {useDropzone} from 'react-dropzone'
 import Papa from '@foobarbecue/papaparse'
 
-export default function(props) {
+export default function (props) {
 	const onDrop = useCallback(
 		acceptedFiles => {
-		for (const acceptedFile of acceptedFiles){
+			for (const acceptedFile of acceptedFiles) {
 
-			// If it's a csv, parse and plot
-			if (acceptedFile.name.endsWith('csv')){
-				Papa.parse(acceptedFile, {
-					complete: props.onAddPlotData,
-					header: true,
-					dynamicTyping: true,
-					skipEmptyLines: true
-				})
-			}
-			else {
-			// If it's video, blobify and play
-			const vidData = URL.createObjectURL(acceptedFile);
-			props.onAddVidData(vidData);
-			}
+				// If it's a csv, parse and plot
+				if (acceptedFile.name.endsWith('csv')) {
+					Papa.parse(acceptedFile, {
+						complete: props.onAddPlotData,
+						header: true,
+						dynamicTyping: true,
+						skipEmptyLines: true
+					})
+				} else {
+					// If it's video, blobify and play
+					const vidData = URL.createObjectURL(acceptedFile);
+					props.onAddVidData(vidData);
+				}
 
-		}
-	},
+			}
+		},
 		[] // Arguments for react hook memoization... maybe use to optimize?
 	);
 
@@ -36,9 +35,9 @@ export default function(props) {
 				isDragActive ?
 					<p>Ok leggo that mouse button now</p> :
 					<p>
-						<span style={{color:'grey'}}>(Drag and) </span>
+						<span style={{color: 'grey'}}>(Drag and) </span>
 						drop it like it's plot
-						<span style={{color:'grey'}}> (or video.)</span>
+						<span style={{color: 'grey'}}> (or video.)</span>
 					</p>
 			}
 		</div>

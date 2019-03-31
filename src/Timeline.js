@@ -3,8 +3,8 @@ import Timeline from 'react-calendar-timeline'
 import moment from 'moment'
 import 'react-calendar-timeline/lib/Timeline.css'
 
-export default class EventTimeline extends Component{
-	constructor(props){
+export default class EventTimeline extends Component {
+	constructor(props) {
 		super(props);
 		this.state = {
 			visibleTimeStart: this.props.minTime,
@@ -13,24 +13,25 @@ export default class EventTimeline extends Component{
 		}
 	}
 
-	propsToItems = (props) =>{
+	propsToItems = (props) => {
 		const propsToUse = props || this.props;
 		return (
-		propsToUse.plotData.map(
-		(dataForOnePlot, index) =>{
-			const firstColName = dataForOnePlot.meta.fields[0];
-			const nRows = dataForOnePlot.data.length;
-			return(
-				{
-					id: index,
-					group: 1,
-					title: dataForOnePlot.fileName,
-					start_time: dataForOnePlot.data[0][firstColName],
-					end_time: dataForOnePlot.data[nRows-1][firstColName]
+			propsToUse.plotData.map(
+				(dataForOnePlot, index) => {
+					const firstColName = dataForOnePlot.meta.fields[0];
+					const nRows = dataForOnePlot.data.length;
+					return (
+						{
+							id: index,
+							group: 1,
+							title: dataForOnePlot.fileName,
+							start_time: dataForOnePlot.data[0][firstColName],
+							end_time: dataForOnePlot.data[nRows - 1][firstColName]
+						}
+					)
 				}
-			)
-		}
-	))};
+			))
+	};
 
 	getItemStartTimes = (items) => {
 		return items.map(
@@ -53,8 +54,8 @@ export default class EventTimeline extends Component{
 	};
 
 	componentWillReceiveProps(nextProps, nextContext) {
-	// If new components (plots or videos) were added we need to update the timeline
-		if (this.props.plotData.length < nextProps.plotData.length){
+		// If new components (plots or videos) were added we need to update the timeline
+		if (this.props.plotData.length < nextProps.plotData.length) {
 			const items = this.propsToItems(nextProps);
 			const startTimes = this.getItemStartTimes(items);
 			const endTimes = this.getItemEndTimes(items);
@@ -66,11 +67,11 @@ export default class EventTimeline extends Component{
 		}
 	}
 
-	render(){
-		return(
+	render() {
+		return (
 			<Timeline
 				items={this.state.items}
-				groups={[{ id: 1, title: 'Plots' }, { id: 2, title: 'Videos' }]}
+				groups={[{id: 1, title: 'Plots'}, {id: 2, title: 'Videos'}]}
 				visibleTimeStart={this.state.visibleTimeStart}
 				visibleTimeEnd={this.state.visibleTimeEnd}
 				traditionalZoom={true}
