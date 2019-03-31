@@ -1,6 +1,6 @@
-import React, { Component, useCallback } from 'react'
+import React, { useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
-import Papa from 'papaparse'
+import Papa from '@foobarbecue/papaparse'
 
 export default function(props) {
 	const onDrop = useCallback(
