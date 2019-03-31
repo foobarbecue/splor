@@ -6,6 +6,7 @@ import {OneLineTSPlot, MultilineTSPlot} from './Plots'
 import Player from 'react-player'
 import EventTimeline from './Timeline'
 import RVStyles from 'react-vis-styles'
+import './main.css'
 
 export default class extends Component {
 	constructor() {

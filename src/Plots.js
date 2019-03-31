@@ -1,4 +1,4 @@
-import {FlexibleXYPlot, XAxis, YAxis, LineSeries, Crosshair} from 'react-vis'
+import {FlexibleXYPlot, XAxis, YAxis, LineSeriesCanvas, Crosshair} from 'react-vis'
 import React, {Component} from 'react'
 
 export class OneLineTSPlot extends Component {
@@ -24,7 +24,7 @@ export class OneLineTSPlot extends Component {
 				<FlexibleXYPlot
 					xType={this.is_timeseries ? "time" : "linear"}
 				>
-					<LineSeries
+					<LineSeriesCanvas
 						data={this.data}/>
 					<Crosshair
 						values={[{x: (this.state.startTime.getTime() + this.props.timeBar * 1000), y: 0}]}
@@ -67,8 +67,9 @@ export class MultilineTSPlot extends Component {
 					xType={this.is_timeseries ? "time" : "linear"}
 				>
 					{this.data.map(
-						(data) =>
-							<LineSeries
+						(data, index) =>
+							<LineSeriesCanvas
+								ref={index}
 								data={data}/>
 					)}
 
