@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react'
 import FileDrop from './FileDrop'
-import Plot from './Plot'
+import { OneLineTSPlot, MultilineTSPlot } from './Plots'
 import Player from 'react-player'
 import EventTimeline from './Timeline'
 import RVStyles from 'react-vis-styles'
@@ -63,11 +63,20 @@ export default class extends Component{
 					onAddVidData={this.addVidData}
 				/>
 				{this.state.plotData.map((plotData, index) =>
-					<Plot
+				{if (plotData.meta.fields.length === 2){
+					return <OneLineTSPlot
 						key={index}
 						plotData={plotData}
 						timeBar={this.state.timeBar}
 					/>
+				} else if (plotData.meta.fields.length > 2){
+					return <MultilineTSPlot
+						key={index}
+						plotData={plotData}
+						timeBar={this.state.timeBar}
+					/>
+				}
+				}
 				)}
 				{this.state.vidData.map((vidData, index) =>
 					<Player
