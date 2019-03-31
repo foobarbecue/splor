@@ -1,11 +1,14 @@
 import { open as rosopen } from 'rosbag'
 import Papa from '@foobarbecue/papaparse'
 
-export default function readInp(acceptedFile, addPlotData, addVidData){
+export default function readInp(acceptedFile, onAddData, region){
 	console.log(acceptedFile);
 	if (acceptedFile.name.endsWith('csv')) {
+		const wrappedOnAddData = (newData, file) => {
+			onAddData(newData, file, 'plot', region)
+		};
 		Papa.parse(acceptedFile, {
-			complete: addPlotData,
+			complete: wrappedOnAddData,
 			header: true,
 			dynamicTyping: true,
 			skipEmptyLines: true
@@ -15,7 +18,7 @@ export default function readInp(acceptedFile, addPlotData, addVidData){
 	} else {
 		// If it's video, blobify and play
 		const vidData = URL.createObjectURL(acceptedFile);
-		addVidData(vidData);
+		onAddVidData(vidData);
 	}
 }
 

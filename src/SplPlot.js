@@ -1,6 +1,20 @@
 import {FlexibleXYPlot, XAxis, YAxis, LineSeriesCanvas, Crosshair} from 'react-vis'
 import React, {Component} from 'react'
 
+export default function SplPlot(props){
+	if (props.regionData.meta.fields.length === 2) {
+		return <OneLineTSPlot
+			plotData={props.regionData}
+			// timeBar={this.state.timeBar}
+		/>
+	} else if (props.regionData.meta.fields.length > 2) {
+		return <MultilineTSPlot
+			plotData={props.regionData}
+			// timeBar={this.state.timeBar}
+		/>
+	}
+}
+
 export class OneLineTSPlot extends Component {
 	constructor(props) {
 		super(props);

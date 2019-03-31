@@ -13,8 +13,8 @@ export default class extends Component {
 		super();
 		const now = new Date();
 		this.state = {
-			plotData: [], // A list of datasets to be plotted
-			vidData: [], // A list of video blobs to be shown in players
+			// plotData and vidData have 4 elements, representing NW NE SE SW regions. TODO adjustable numbers of regions
+			regionsData: [null, null, null, null], // A list of datasets to be plotted
 			timeBar: null,
 			events: [
 				{time: new Date(now.getTime() - 24 * 1000 * 60 * 60), name: 'defaultStart'},  // prepopulate so the timeline doesn't freak out
@@ -23,17 +23,19 @@ export default class extends Component {
 		}
 	}
 
-	addPlotData = (newPlotData, file) => {
-		Object.assign(newPlotData, {fileName: file.name});
-		this.setState(
-			{plotData: this.state.plotData.concat(newPlotData)}
-		)
-	};
-
-	addVidData = (newVidData) => {
-		this.setState(
-			{vidData: this.state.vidData.concat(newVidData)}
-		)
+	addData = (newData, fileOrURL, dataType, region) => {
+		if (dataType === 'plot') {
+			Object.assign(newData, {fileName: fileOrURL.name, dataType:dataType}); //TODO maybe move this into readInp
+			const augmentedRegionsData = this.state.regionsData.slice()
+			augmentedRegionsData[region] = newData;
+			this.setState({regionsData: augmentedRegionsData});
+		}
+		else if (dataType === 'video') {
+			Object.assign(newData, {dataType:dataType});
+			const augmentedRegionsData = this.state.regionsData.slice()
+			augmentedRegionsData[region] = fileOrURL;
+			this.setState({regionsData: augmentedRegionsData});
+		}
 	};
 
 	setTimebar = (datetime) => {
@@ -59,44 +61,23 @@ export default class extends Component {
 				}}>
 					<h1 style={{gridArea: "hdr"}}>Let's SPLOR!</h1>
 					<RVStyles/>
-					<SplRegion
-						onAddPlotData={this.addPlotData}
-						onAddVidData={this.addVidData}
-					/>
-					{this.state.plotData.map((plotData, index) => {
-							if (plotData.meta.fields.length === 2) {
-								return <OneLineTSPlot
-									key={index}
-									plotData={plotData}
-									timeBar={this.state.timeBar}
-								/>
-							} else if (plotData.meta.fields.length > 2) {
-								return <MultilineTSPlot
-									key={index}
-									plotData={plotData}
-									timeBar={this.state.timeBar}
-								/>
-							}
-						}
-					)}
-					{this.state.vidData.map((vidData, index) =>
-						<Player
-							key={index}
-							url={vidData}
-							controls
-							height='100%'
-							width='100%'
-							onProgress={this.onVidProgress}
-							onSeek={this.setTimebar}
+
+					{this.state.regionsData.map((regionData, region) =>
+						<SplRegion
+							key={region}
+							onAddData={this.addData}
+							regionData={regionData}
+							region={region}
 						/>
 					)}
-					<SplTimeline
-						// Computes max and min times. Probably already calculated in the plot components. Optimise?
-						plotData={this.state.plotData}
-						vidData={this.state.vidData}
-						minTime={this.state.events[0].time.getTime()}
-						maxTime={this.state.events[this.state.events.length - 1].time.getTime()}
-					/>
+
+					{/*<SplTimeline*/}
+					{/*	// Computes max and min times. Probably already calculated in the plot components. Optimise?*/}
+					{/*	plotData={this.state.plotData}*/}
+					{/*	vidData={this.state.vidData}*/}
+					{/*	minTime={this.state.events[0].time.getTime()}*/}
+					{/*	maxTime={this.state.events[this.state.events.length - 1].time.getTime()}*/}
+					{/*/>*/}
 				</div>
 			</>
 		)
