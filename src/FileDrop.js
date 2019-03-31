@@ -1,6 +1,8 @@
 import React, {useCallback} from 'react'
 import {useDropzone} from 'react-dropzone'
 import Papa from '@foobarbecue/papaparse'
+import { open as rosopen } from 'rosbag'
+window.rosopen = rosopen;
 
 export default function (props) {
 	const onDrop = useCallback(
@@ -15,7 +17,10 @@ export default function (props) {
 						dynamicTyping: true,
 						skipEmptyLines: true
 					})
-				} else {
+				} else if(acceptedFile.name.endsWith('bag')){
+					const rosfile = rosopen(acceptedFile);
+				}
+				{
 					// If it's video, blobify and play
 					const vidData = URL.createObjectURL(acceptedFile);
 					props.onAddVidData(vidData);
