@@ -1,10 +1,10 @@
 // import request from "superagent";
 
 import React, {Component} from 'react'
-import FileDrop from './FileDrop'
-import {OneLineTSPlot, MultilineTSPlot} from './Plots'
+import SplRegion from './SplRegion'
+import SplTimeline from './SplTimeline'
+import {OneLineTSPlot, MultilineTSPlot} from './SplPlot'
 import Player from 'react-player'
-import EventTimeline from './Timeline'
 import RVStyles from 'react-vis-styles'
 import './main.css'
 
@@ -59,7 +59,7 @@ export default class extends Component {
 				}}>
 					<h1 style={{gridArea: "hdr"}}>Let's SPLOR!</h1>
 					<RVStyles/>
-					<FileDrop
+					<SplRegion
 						onAddPlotData={this.addPlotData}
 						onAddVidData={this.addVidData}
 					/>
@@ -90,7 +90,7 @@ export default class extends Component {
 							onSeek={this.setTimebar}
 						/>
 					)}
-					<EventTimeline
+					<SplTimeline
 						// Computes max and min times. Probably already calculated in the plot components. Optimise?
 						plotData={this.state.plotData}
 						vidData={this.state.vidData}

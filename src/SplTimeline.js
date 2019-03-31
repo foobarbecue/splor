@@ -1,9 +1,8 @@
 import React, {Component} from 'react'
 import Timeline from 'react-calendar-timeline'
-import moment from 'moment'
 import 'react-calendar-timeline/lib/Timeline.css'
 
-export default class EventTimeline extends Component {
+export default class SplTimeline extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {

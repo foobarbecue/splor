@@ -4,7 +4,15 @@ import Papa from '@foobarbecue/papaparse'
 import { open as rosopen } from 'rosbag'
 window.rosopen = rosopen;
 
-export default function (props) {
+async function readRosbag(acceptedFile){
+	const bag = await rosopen(acceptedFile);
+	await bag.readMessages({},
+		(result) => {console.log(result.chunkOffset / result.totalChunks)}
+		)
+}
+
+export default function SplRegion(props) {
+
 	const onDrop = useCallback(
 		acceptedFiles => {
 			for (const acceptedFile of acceptedFiles) {
@@ -18,8 +26,8 @@ export default function (props) {
 						skipEmptyLines: true
 					})
 				} else if(acceptedFile.name.endsWith('bag')){
-					const rosfile = rosopen(acceptedFile);
-				}
+					readRosbag(acceptedFile)
+				} else
 				{
 					// If it's video, blobify and play
 					const vidData = URL.createObjectURL(acceptedFile);
@@ -32,6 +40,7 @@ export default function (props) {
 	);
 
 	const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop});
+
 
 	return (
 		<div {...getRootProps()}>
