@@ -1,39 +1,15 @@
 import React, {useCallback} from 'react'
 import {useDropzone} from 'react-dropzone'
-import Papa from '@foobarbecue/papaparse'
-import { open as rosopen } from 'rosbag'
-window.rosopen = rosopen;
+import readInp from './readInp'
 
-async function readRosbag(acceptedFile){
-	const bag = await rosopen(acceptedFile);
-	await bag.readMessages({},
-		(result) => {console.log(result.chunkOffset / result.totalChunks)}
-		)
-}
 
 export default function SplRegion(props) {
 
 	const onDrop = useCallback(
 		acceptedFiles => {
+			console.log('acptdfiles')
 			for (const acceptedFile of acceptedFiles) {
-
-				// If it's a csv, parse and plot
-				if (acceptedFile.name.endsWith('csv')) {
-					Papa.parse(acceptedFile, {
-						complete: props.onAddPlotData,
-						header: true,
-						dynamicTyping: true,
-						skipEmptyLines: true
-					})
-				} else if(acceptedFile.name.endsWith('bag')){
-					readRosbag(acceptedFile)
-				} else
-				{
-					// If it's video, blobify and play
-					const vidData = URL.createObjectURL(acceptedFile);
-					props.onAddVidData(vidData);
-				}
-
+				readInp(acceptedFile, props.onAddPlotData, props.onAddVidData)
 			}
 		},
 		[] // Arguments for react hook memoization... maybe use to optimize?
