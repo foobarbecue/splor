@@ -8,7 +8,6 @@ import SplPlot from './SplPlot'
 function SplDropzone(props){
 	const onDrop = useCallback(
 		acceptedFiles => {
-			console.log('acptdfiles')
 			for (const acceptedFile of acceptedFiles) {
 				readInp(acceptedFile, props.onAddData, props.region)
 			}
@@ -47,6 +46,7 @@ export default class SplRegion extends Component {
 				<SplDropzone
 					onAddData={this.props.onAddData}
 					region={this.props.region}
+					timebar={this.props.timebar}
 				/>
 			)
 		} else if (this.props.regionData.dataType === "plot") {
@@ -54,18 +54,19 @@ export default class SplRegion extends Component {
 				<SplPlot
 					key={this.props.region} // region number
 					regionData={this.props.regionData}
+					timebar={this.props.timebar}
 				/>
 				)
 		} else if (this.props.regionData.dataType === "video") {
 			return (
 				<Player
 					key={this.props.key} // region number
-					url={vidData}
+					url={this.props.regionData.url}
 					controls
 					height='100%'
 					width='100%'
-					onProgress={this.onVidProgress}
-					onSeek={this.setTimebar}
+					onProgress={this.props.onVidProgress}
+					onSeek={this.props.setTimebar}
 				/>
 				)
 		}

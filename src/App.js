@@ -24,18 +24,10 @@ export default class extends Component {
 	}
 
 	addData = (newData, fileOrURL, dataType, region) => {
-		if (dataType === 'plot') {
 			Object.assign(newData, {fileName: fileOrURL.name, dataType:dataType}); //TODO maybe move this into readInp
-			const augmentedRegionsData = this.state.regionsData.slice()
+			const augmentedRegionsData = this.state.regionsData.slice();
 			augmentedRegionsData[region] = newData;
 			this.setState({regionsData: augmentedRegionsData});
-		}
-		else if (dataType === 'video') {
-			Object.assign(newData, {dataType:dataType});
-			const augmentedRegionsData = this.state.regionsData.slice()
-			augmentedRegionsData[region] = fileOrURL;
-			this.setState({regionsData: augmentedRegionsData});
-		}
 	};
 
 	setTimebar = (datetime) => {
@@ -66,8 +58,11 @@ export default class extends Component {
 						<SplRegion
 							key={region}
 							onAddData={this.addData}
+							onVidProgress={this.onVidProgress}
 							regionData={regionData}
 							region={region}
+							timebar={this.state.timeBar}
+							setTimebar={this.setTimebar}
 						/>
 					)}
 

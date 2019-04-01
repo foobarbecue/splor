@@ -17,8 +17,8 @@ export default function readInp(acceptedFile, onAddData, region){
 			readBag(acceptedFile)
 	} else {
 		// If it's video, blobify and play
-		const vidData = URL.createObjectURL(acceptedFile);
-		onAddVidData(vidData);
+		const vidData = {url:URL.createObjectURL(acceptedFile)};
+		onAddData(vidData, acceptedFile, 'video', region);
 	}
 }
 
