@@ -66,13 +66,12 @@ export default class extends Component {
 						/>
 					)}
 
-					{/*<SplTimeline*/}
-					{/*	// Computes max and min times. Probably already calculated in the plot components. Optimise?*/}
-					{/*	plotData={this.state.plotData}*/}
-					{/*	vidData={this.state.vidData}*/}
-					{/*	minTime={this.state.events[0].time.getTime()}*/}
-					{/*	maxTime={this.state.events[this.state.events.length - 1].time.getTime()}*/}
-					{/*/>*/}
+					<SplTimeline
+						// Computes max and min times. Probably already calculated in the plot components. Optimise?
+						regionsData={this.state.regionsData}
+						minTime={this.state.events[0].time.getTime()}
+						maxTime={this.state.events[this.state.events.length - 1].time.getTime()}
+					/>
 				</div>
 			</>
 		)

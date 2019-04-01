@@ -12,24 +12,25 @@ export default class SplTimeline extends Component {
 		}
 	}
 
-	propsToItems = (props) => {
-		const propsToUse = props || this.props;
-		return (
-			propsToUse.plotData.map(
-				(dataForOnePlot, index) => {
-					const firstColName = dataForOnePlot.meta.fields[0];
-					const nRows = dataForOnePlot.data.length;
-					return (
-						{
-							id: index,
-							group: 1,
-							title: dataForOnePlot.fileName,
-							start_time: dataForOnePlot.data[0][firstColName],
-							end_time: dataForOnePlot.data[nRows - 1][firstColName]
-						}
+	getTimelineItemsFromData = (regionsData) => {
+		const timelineItems = regionsData.map(
+				(regionData, region) => {
+					if (regionData && regionData.dataType === 'plot'){
+						const firstColName = regionData.meta.fields[0];
+						const nRows = regionData.data.length;
+						return (
+							{
+								id: region,
+								group: 1,
+								title: regionData.fileName,
+								start_time: regionData.data[0][firstColName],
+								end_time: regionData.data[nRows - 1][firstColName]
+							}
 					)
+					}
 				}
-			))
+			);
+		return timelineItems.filter(item => item) // remove undefineds
 	};
 
 	getItemStartTimes = (items) => {
@@ -54,7 +55,7 @@ export default class SplTimeline extends Component {
 
 	componentWillReceiveProps(nextProps, nextContext) {
 		// If new components (plots or videos) were added we need to update the timeline
-		if (this.props.plotData.length < nextProps.plotData.length) {
+		if (this.props.plotData !== nextProps.plotData) {
 			const items = this.propsToItems(nextProps);
 			const startTimes = this.getItemStartTimes(items);
 			const endTimes = this.getItemEndTimes(items);
@@ -69,7 +70,7 @@ export default class SplTimeline extends Component {
 	render() {
 		return (
 			<Timeline
-				items={this.state.items}
+				items={this.getTimelineItemsFromData(this.props.regionsData)} // TODO seems to be recalculating on drag
 				groups={[{id: 1, title: 'Plots'}, {id: 2, title: 'Videos'}]}
 				visibleTimeStart={this.state.visibleTimeStart}
 				visibleTimeEnd={this.state.visibleTimeEnd}

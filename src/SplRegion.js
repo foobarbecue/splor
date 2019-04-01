@@ -60,7 +60,7 @@ export default class SplRegion extends Component {
 		} else if (this.props.regionData.dataType === "video") {
 			return (
 				<Player
-					key={this.props.key} // region number
+					key={this.props.region} // region number
 					url={this.props.regionData.url}
 					controls
 					height='100%'
