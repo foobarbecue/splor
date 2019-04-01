@@ -55,8 +55,8 @@ export default class SplTimeline extends Component {
 
 	componentWillReceiveProps(nextProps, nextContext) {
 		// If new components (plots or videos) were added we need to update the timeline
-		if (this.props.plotData !== nextProps.plotData) {
-			const items = this.propsToItems(nextProps);
+		if (this.props.regionsData !== nextProps.regionsData) {
+			const items = this.getTimelineItemsFromData(nextProps.regionsData);
 			const startTimes = this.getItemStartTimes(items);
 			const endTimes = this.getItemEndTimes(items);
 			this.setState({
@@ -70,7 +70,7 @@ export default class SplTimeline extends Component {
 	render() {
 		return (
 			<Timeline
-				items={this.getTimelineItemsFromData(this.props.regionsData)} // TODO seems to be recalculating on drag
+				items={this.state.items} // TODO seems to be recalculating on drag
 				groups={[{id: 1, title: 'Plots'}, {id: 2, title: 'Videos'}]}
 				visibleTimeStart={this.state.visibleTimeStart}
 				visibleTimeEnd={this.state.visibleTimeEnd}
