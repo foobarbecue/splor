@@ -6,6 +6,7 @@ import SplPlot from './SplPlot'
 
 
 function SplDropzone(props){
+
 	const onDrop = useCallback(
 		acceptedFiles => {
 			for (const acceptedFile of acceptedFiles) {
@@ -49,6 +50,8 @@ export default class SplRegion extends Component {
 					timebar={this.props.timebar}
 				/>
 			)
+		} else if (this.props.regionData.dataType === "loading") {
+			return <div>loading {this.props.regionData.progress}%</div>
 		} else if (this.props.regionData.dataType === "plot") {
 			return (
 				<SplPlot

@@ -24,7 +24,7 @@ export default class extends Component {
 	}
 
 	addData = (newData, fileOrURL, dataType, region) => {
-			Object.assign(newData, {fileName: fileOrURL.name, dataType:dataType}); //TODO maybe move this into readInp
+			Object.assign(newData, {fileName: fileOrURL.name, dataType: dataType}); //TODO maybe move this into readInp
 			const augmentedRegionsData = this.state.regionsData.slice();
 			augmentedRegionsData[region] = newData;
 			this.setState({regionsData: augmentedRegionsData});

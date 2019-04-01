@@ -14,7 +14,7 @@ export default function readInp(acceptedFile, onAddData, region){
 			skipEmptyLines: true
 		})
 	} else if (acceptedFile.name.endsWith('bag')) {
-			readBag(acceptedFile)
+			readBag(acceptedFile, onAddData, region)
 	} else {
 		// If it's video, blobify and play
 		const vidData = {url:URL.createObjectURL(acceptedFile)};
@@ -22,9 +22,12 @@ export default function readInp(acceptedFile, onAddData, region){
 	}
 }
 
-async function readBag(acceptedFile){
+async function readBag(acceptedFile, onAddData, region){
 	const bag = await rosopen(acceptedFile);
 	await bag.readMessages({},
-		(result) => {console.log(result.chunkOffset / result.totalChunks)}
+		(result) => {
+			const progress = (result.chunkOffset / result.totalChunks);
+			onAddData({progress:progress}, acceptedFile, 'loading', region);
+	}
 	)
 }

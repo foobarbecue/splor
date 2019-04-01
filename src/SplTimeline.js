@@ -57,13 +57,15 @@ export default class SplTimeline extends Component {
 		// If new components (plots or videos) were added we need to update the timeline
 		if (this.props.regionsData !== nextProps.regionsData) {
 			const items = this.getTimelineItemsFromData(nextProps.regionsData);
-			const startTimes = this.getItemStartTimes(items);
-			const endTimes = this.getItemEndTimes(items);
-			this.setState({
-				visibleTimeStart: startTimes[0].getTime(),
-				visibleTimeEnd: endTimes[0].getTime(),
-				items: items
-			});
+			if (items.length > 0){
+				const startTimes = this.getItemStartTimes(items);
+				const endTimes = this.getItemEndTimes(items);
+				this.setState({
+					visibleTimeStart: startTimes[0].getTime(),
+					visibleTimeEnd: endTimes[0].getTime(),
+					items: items
+				});
+			}
 		}
 	}
 
