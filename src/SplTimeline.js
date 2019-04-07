@@ -53,11 +53,12 @@ export default class SplTimeline extends Component {
 	}
 
 	render() {
-		return (
-			<Timeline
-				ref={this.timelineRef}
-				items={this.state.items} // TODO seems to be recalculating on drag
-			/>
+		return (<div className={'timelineContainer'}>
+				<Timeline
+					ref={this.timelineRef}
+					items={this.state.items} // TODO seems to be recalculating on drag
+				/>
+			</div>
 		)
 	}
 }

@@ -2,3 +2,7 @@ canvas.rv-xy-canvas-element {
     width: inherit !important;
     height: inherit !important;
 }
+
+.timelineContainer {
+    grid-area: timeline;
+}
