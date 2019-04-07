@@ -3,8 +3,6 @@
 import React, {Component} from 'react'
 import SplRegion from './SplRegion'
 import SplTimeline from './SplTimeline'
-import {OneLineTSPlot, MultilineTSPlot} from './SplPlot'
-import Player from 'react-player'
 import RVStyles from 'react-vis-styles'
 import './main.css'
 
@@ -65,13 +63,11 @@ export default class extends Component {
 							setTimebar={this.setTimebar}
 						/>
 					)}
-
+					{!this.state.regionsData.every((elem)=>(elem==null)) &&
 					<SplTimeline
-						// Computes max and min times. Probably already calculated in the plot components. Optimise?
 						regionsData={this.state.regionsData}
-						minTime={this.state.events[0].time.getTime()}
-						maxTime={this.state.events[this.state.events.length - 1].time.getTime()}
 					/>
+					}
 				</div>
 			</>
 		)
