@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import Timeline from 'react-calendar-timeline'
+import Timeline from 'react-visjs-timeline'
 import 'react-calendar-timeline/lib/Timeline.css'
 
 export default class SplTimeline extends Component {
@@ -22,9 +22,9 @@ export default class SplTimeline extends Component {
 							{
 								id: region,
 								group: 1,
-								title: regionData.fileName,
-								start_time: regionData.data[0][firstColName],
-								end_time: regionData.data[nRows - 1][firstColName]
+								content: regionData.fileName,
+								start: regionData.data[0][firstColName],
+								end: regionData.data[nRows - 1][firstColName]
 							}
 					)
 					}
@@ -36,7 +36,7 @@ export default class SplTimeline extends Component {
 	getItemStartTimes = (items) => {
 		return items.map(
 			(item) => {
-				return item.start_time
+				return item.start
 			}
 		).sort((item0, item1) => (item0 < item1) ? -1 : 1)
 	};
@@ -44,7 +44,7 @@ export default class SplTimeline extends Component {
 	getItemEndTimes = (items) => {
 		return items.map(
 			(item) => {
-				return item.end_time
+				return item.end
 			}
 		).sort((item0, item1) => (item0 > item1) ? -1 : 1)
 	};
@@ -79,6 +79,7 @@ export default class SplTimeline extends Component {
 				traditionalZoom={true}
 				style={{gridArea: 'timeline'}}
 				onTimeChange={this.handleTimeChange}
+				options={{width:'100%', height:'60px'}}
 			/>
 		)
 	}
