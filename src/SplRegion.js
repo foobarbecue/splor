@@ -40,8 +40,14 @@ export default class SplRegion extends Component {
 
 	};
 
-	onVidDuration = (duration) =>{
+	// The next two functions just exist to add the region (window quadrant) to the
+	// function call
+	onVidDuration = (duration) => {
 		this.props.onVidDuration(this.props.region, duration)
+	};
+
+	onVidProgress = (progressObj) => {
+		this.props.onVidProgress(this.props.region, progressObj)
 	};
 
 	render() {

@@ -13,7 +13,7 @@ export default class extends Component {
 		this.state = {
 			// plotData and vidData have 4 elements, representing NW NE SE SW regions. TODO adjustable numbers of regions
 			regionsData: [null, null, null, null], // A list of datasets to be plotted
-			timeBar: null,
+			timeBar: now,
 			events: [
 				{time: new Date(now.getTime() - 24 * 1000 * 60 * 60), name: 'defaultStart'},  // prepopulate so the timeline doesn't freak out
 				{time: new Date(now.getTime() + 24 * 1000 * 60 * 60), name: 'defaultEnd'}
@@ -23,6 +23,9 @@ export default class extends Component {
 
 	addData = (newData, fileOrURL, dataType, region) => {
 			Object.assign(newData, {fileName: fileOrURL.name, dataType: dataType}); //TODO maybe move this into readInp
+			if (dataType === 'video'){
+				Object.assign(newData, {vidStartTime: this.state.timeBar})
+			}
 			const augmentedRegionsData = this.state.regionsData.slice();
 			augmentedRegionsData[region] = newData;
 			this.setState({regionsData: augmentedRegionsData});
@@ -34,13 +37,21 @@ export default class extends Component {
 		)
 	};
 
-	onVidProgress = (progressObj) => {
-		this.setTimebar(progressObj.playedSeconds)
+	onVidProgress = (region, progressObj) => {
+		const vidStartTime = this.state.regionsData[region].vidStartTime;
+		this.setTimebar(new Date(
+			vidStartTime.getTime() + progressObj.playedSeconds * 1000))
 	};
 
 	onVidDuration = (region, duration) => {
 		const regionsDataCopy = this.state.regionsData.slice();
 		Object.assign(regionsDataCopy[region], {duration: duration});
+		this.setState({regionsData: regionsDataCopy});
+	};
+
+	setVidStart = (region, startTime) => {
+		const regionsDataCopy = this.state.regionsData.slice();
+		Object.assign(regionsDataCopy[region], {vidStartTime: startTime});
 		this.setState({regionsData: regionsDataCopy});
 	};
 
@@ -63,6 +74,7 @@ export default class extends Component {
 							onAddData={this.addData}
 							onVidProgress={this.onVidProgress}
 							onVidDuration={this.onVidDuration}
+							setVidStart={this.setVidStart}
 							regionData={regionData}
 							region={region}
 							timebar={this.state.timeBar}
@@ -73,6 +85,7 @@ export default class extends Component {
 						!this.state.regionsData.every((elem)=>(elem==null)) &&
 					<SplTimeline
 						regionsData={this.state.regionsData}
+						timeBar={this.state.timeBar}
 					/>
 					}
 				</div>

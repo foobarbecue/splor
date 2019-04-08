@@ -23,7 +23,15 @@ export default class SplTimeline extends Component {
 							}
 					) }
 					else if (regionData && regionData.dataType === "video"){
-
+						{
+							if(regionData.hasOwnProperty('duration')){
+								return({
+									content: regionData.fileName,
+									start: this.props.timeBar,
+									end: new Date(regionData.vidStartTime.getTime() + regionData.duration * 1000)
+								})
+							}
+						}
 						}
 
 				}
