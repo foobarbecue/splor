@@ -5,13 +5,6 @@ export default class SplTimeline extends Component {
 	constructor(props) {
 		super(props);
 		this.timelineRef = React.createRef();
-		this.state = {
-			items: [{
-				start: new Date(2010, 7, 15),
-				end: new Date(2010, 8, 2),  // end is optional
-				content: 'No content yet',
-			}]
-		}
 	}
 
 	getTimelineItemsFromData = (regionsData) => {
@@ -28,35 +21,26 @@ export default class SplTimeline extends Component {
 								start: regionData.data[0][firstColName],
 								end: regionData.data[nRows - 1][firstColName]
 							}
-					)
-					}
+					) }
+					else if (regionData && regionData.dataType === "video"){
+
+						}
+
 				}
 			);
 		return timelineItems.filter(item => item) // remove undefineds
 	};
-
-	componentWillReceiveProps(nextProps, nextContext) {
-		// If new components (plots or videos) were added we need to update the timeline
-		if (this.props.regionsData !== nextProps.regionsData) {
-			const items = this.getTimelineItemsFromData(nextProps.regionsData);
-			if (items.length > 0){
-				this.setState({
-					items: items
-				});
-				this.timelineRef.current.$el.fit()
-			}
-		}
-	}
 
 	componentDidUpdate(prevProps, prevState, snapshot) {
 		this.timelineRef.current.$el.fit()
 	}
 
 	render() {
+		const items = this.getTimelineItemsFromData(this.props.regionsData);
 		return (<div className={'timelineContainer'}>
 				<Timeline
 					ref={this.timelineRef}
-					items={this.state.items} // TODO seems to be recalculating on drag
+					items={items} // TODO seems to be recalculating on drag
 				/>
 			</div>
 		)

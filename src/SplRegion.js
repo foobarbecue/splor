@@ -40,6 +40,10 @@ export default class SplRegion extends Component {
 
 	};
 
+	onVidDuration = (duration) =>{
+		this.props.onVidDuration(this.props.region, duration)
+	};
+
 	render() {
 		// If we don't have data in this region yet:
 		if (!this.props.regionData) {
@@ -70,6 +74,7 @@ export default class SplRegion extends Component {
 					width='100%'
 					onProgress={this.props.onVidProgress}
 					onSeek={this.props.setTimebar}
+					onDuration={this.onVidDuration}
 				/>
 				)
 		}

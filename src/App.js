@@ -38,6 +38,12 @@ export default class extends Component {
 		this.setTimebar(progressObj.playedSeconds)
 	};
 
+	onVidDuration = (region, duration) => {
+		const regionsDataCopy = this.state.regionsData.slice();
+		Object.assign(regionsDataCopy[region], {duration: duration});
+		this.setState({regionsData: regionsDataCopy});
+	};
+
 	render() {
 		return (
 			<>
@@ -46,10 +52,9 @@ export default class extends Component {
 					gridTemplateRows: '1fr 4fr 4fr 2fr',
 					gridTemplateColumns: '1fr 1fr',
 					gridTemplateAreas: "'hdr hdr' 'NW NE' 'SW SE' 'timeline timeline'",
-
 					height: '100%'
 				}}>
-					<h1 style={{gridArea: "hdr"}}>Let's SPLOR!</h1>
+					<h1 style={{gridArea: "hdr"}}>splor</h1>
 					<RVStyles/>
 
 					{this.state.regionsData.map((regionData, region) =>
@@ -57,13 +62,15 @@ export default class extends Component {
 							key={region}
 							onAddData={this.addData}
 							onVidProgress={this.onVidProgress}
+							onVidDuration={this.onVidDuration}
 							regionData={regionData}
 							region={region}
 							timebar={this.state.timeBar}
 							setTimebar={this.setTimebar}
 						/>
 					)}
-					{!this.state.regionsData.every((elem)=>(elem==null)) &&
+					{// Show timeline if any of the regions contain data
+						!this.state.regionsData.every((elem)=>(elem==null)) &&
 					<SplTimeline
 						regionsData={this.state.regionsData}
 					/>
