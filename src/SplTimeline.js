@@ -40,7 +40,16 @@ export default class SplTimeline extends Component {
 	};
 
 	componentDidUpdate(prevProps, prevState, snapshot) {
-		this.timelineRef.current.$el.fit()
+		// Checking for added or removed data
+		for (let x=0; x < this.props.regionsData.length; x++){
+			if ((prevProps.regionsData[x] && !this.props.regionsData[x]) ||
+				(!prevProps.regionsData[x] && this.props.regionsData[x])
+			){
+				// If data is added or removed, zoom to fit
+				this.timelineRef.current.$el.fit()
+			}
+		}
+
 	}
 
 	render() {
@@ -49,6 +58,8 @@ export default class SplTimeline extends Component {
 				<Timeline
 					ref={this.timelineRef}
 					items={items} // TODO seems to be recalculating on drag
+					options={{showCurrentTime: false}}
+					customTimes = {{timeBar: this.props.timeBar}}
 				/>
 			</div>
 		)

@@ -78,7 +78,7 @@ export default class SplRegion extends Component {
 					controls
 					height='100%'
 					width='100%'
-					onProgress={this.props.onVidProgress}
+					onProgress={this.onVidProgress}
 					onSeek={this.props.setTimebar}
 					onDuration={this.onVidDuration}
 				/>
