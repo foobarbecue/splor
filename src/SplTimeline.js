@@ -40,16 +40,10 @@ export default class SplTimeline extends Component {
 	};
 
 	componentDidUpdate(prevProps, prevState, snapshot) {
-		// Checking for added or removed data
-		for (let x=0; x < this.props.regionsData.length; x++){
-			if ((prevProps.regionsData[x] && !this.props.regionsData[x]) ||
-				(!prevProps.regionsData[x] && this.props.regionsData[x])
-			){
-				// If data is added or removed, zoom to fit
-				this.timelineRef.current.$el.fit()
-			}
+		// If data is added or removed, zoom to fit
+		if (prevProps.regionsData != this.props.regionsData){
+			this.timelineRef.current.$el.fit()
 		}
-
 	}
 
 	render() {
