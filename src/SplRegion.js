@@ -40,7 +40,7 @@ export default class SplRegion extends Component {
 
 	};
 
-	// The next two functions just exist to add the region (window quadrant) to the
+	// The next three functions just exist to add the region (window quadrant) to the
 	// function call
 	onVidDuration = (duration) => {
 		this.props.onVidDuration(this.props.region, duration)
@@ -55,6 +55,17 @@ export default class SplRegion extends Component {
 		this.props.onVidProgress(this.props.region, {playedSeconds: seconds})
 	};
 
+	playerRef = (player) => {
+		this.player = player
+	};
+
+	componentDidUpdate(prevProps, prevState, snapshot) {
+		// To avoid race condition, only seek video timebar if timebar has been moved > 100 seconds
+		if (this.player && Math.abs(this.props.timeBar - prevProps.timeBar) > 100){
+			this.player.seekTo((this.props.timeBar - this.props.regionData.vidStartTime) / 1000, 'seconds')
+		}
+	}
+
 	render() {
 		// If we don't have data in this region yet:
 		if (!this.props.regionData) {
@@ -62,7 +73,7 @@ export default class SplRegion extends Component {
 				<SplDropzone
 					onAddData={this.props.onAddData}
 					region={this.props.region}
-					timebar={this.props.timeBar}
+					timeBar={this.props.timeBar}
 				/>
 			)
 		} else if (this.props.regionData.dataType === "loading") {
@@ -78,6 +89,7 @@ export default class SplRegion extends Component {
 		} else if (this.props.regionData.dataType === "video") {
 			return (
 				<Player
+					ref = {this.playerRef}
 					key={this.props.region} // region number
 					url={this.props.regionData.url}
 					controls
