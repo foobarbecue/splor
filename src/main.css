@@ -6,3 +6,7 @@ canvas.rv-xy-canvas-element {
 .timelineContainer {
     grid-area: timeline;
 }
+
+body {
+    margin: 0;
+}

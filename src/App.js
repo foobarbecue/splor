@@ -60,10 +60,11 @@ export default class extends Component {
 			<>
 				<div style={{
 					display: 'grid',
-					gridTemplateRows: '1fr 4fr 4fr 2fr',
+					gridTemplateRows: 'min-content 1fr 1fr 200px',
 					gridTemplateColumns: '1fr 1fr',
 					gridTemplateAreas: "'hdr hdr' 'NW NE' 'SW SE' 'timeline timeline'",
-					height: '100%'
+					height: '100%',
+					overflow: 'hidden'
 				}}>
 					<h1 style={{gridArea: "hdr"}}>splor</h1>
 					<RVStyles/>

@@ -33,11 +33,14 @@ export class OneLineTSPlot extends Component {
 
 	render() {
 		return (
-			<div>
-				<h2>{this.props.plotData.fileName}</h2>
+			<div style={{position:'relative'}}>
+				<h2 style={{position:'absolute', right: '0%'}}>
+					{this.props.plotData.fileName}
+				</h2>
 				<FlexibleXYPlot
 					xType={this.is_timeseries ? "time" : "linear"}
 				>
+
 					<LineSeriesCanvas
 						data={this.data}/>
 					<Crosshair
