@@ -50,6 +50,11 @@ export default class SplRegion extends Component {
 		this.props.onVidProgress(this.props.region, progressObj)
 	};
 
+	onVidSeek = (seconds) => {
+		// re-using the onVidProgress function to avoid passing another function down the tree :-s
+		this.props.onVidProgress(this.props.region, {playedSeconds: seconds})
+	};
+
 	render() {
 		// If we don't have data in this region yet:
 		if (!this.props.regionData) {
@@ -57,7 +62,7 @@ export default class SplRegion extends Component {
 				<SplDropzone
 					onAddData={this.props.onAddData}
 					region={this.props.region}
-					timebar={this.props.timebar}
+					timebar={this.props.timeBar}
 				/>
 			)
 		} else if (this.props.regionData.dataType === "loading") {
@@ -67,7 +72,7 @@ export default class SplRegion extends Component {
 				<SplPlot
 					key={this.props.region} // region number
 					regionData={this.props.regionData}
-					timebar={this.props.timebar}
+					timeBar={this.props.timeBar}
 				/>
 				)
 		} else if (this.props.regionData.dataType === "video") {
@@ -79,7 +84,7 @@ export default class SplRegion extends Component {
 					height='100%'
 					width='100%'
 					onProgress={this.onVidProgress}
-					onSeek={this.props.setTimebar}
+					onSeek={this.onVidSeek}
 					onDuration={this.onVidDuration}
 				/>
 				)

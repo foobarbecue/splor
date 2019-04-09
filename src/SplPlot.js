@@ -5,12 +5,12 @@ export default function SplPlot(props){
 	if (props.regionData.meta.fields.length === 2) {
 		return <OneLineTSPlot
 			plotData={props.regionData}
-			// timeBar={this.state.timeBar}
+			timeBar={props.timeBar}
 		/>
 	} else if (props.regionData.meta.fields.length > 2) {
 		return <MultilineTSPlot
 			plotData={props.regionData}
-			// timeBar={this.state.timeBar}
+			timeBar={props.timeBar}
 		/>
 	}
 }
@@ -44,7 +44,7 @@ export class OneLineTSPlot extends Component {
 					<LineSeriesCanvas
 						data={this.data}/>
 					<Crosshair
-						values={[{x: (this.state.startTime.getTime() + this.props.timeBar * 1000), y: 0}]}
+						values={this.props.timeBar ? [{x: this.props.timeBar.getTime(), y: 0}] : null}
 					>test</Crosshair>
 					<XAxis title={this.props.plotData.meta.fields[0]}/>
 					<YAxis title={this.props.plotData.meta.fields[1]}/>
