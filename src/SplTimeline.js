@@ -39,6 +39,10 @@ export default class SplTimeline extends Component {
 		return timelineItems.filter(item => item) // remove undefineds
 	};
 
+	onTimebarDrag = ({id, time, event}) => {
+		this.props.setTimebar(time)
+	};
+
 	componentDidUpdate(prevProps, prevState, snapshot) {
 		// If data is added or removed, zoom to fit
 		if (prevProps.regionsData != this.props.regionsData){
@@ -54,6 +58,7 @@ export default class SplTimeline extends Component {
 					items={items} // TODO seems to be recalculating on drag
 					options={{showCurrentTime: false}}
 					customTimes = {{timeBar: this.props.timeBar}}
+					timechangeHandler = {this.onTimebarDrag}
 				/>
 			</div>
 		)

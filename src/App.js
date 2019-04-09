@@ -87,6 +87,7 @@ export default class extends Component {
 					<SplTimeline
 						regionsData={this.state.regionsData}
 						timeBar={this.state.timeBar}
+						setTimebar={this.setTimebar}
 					/>
 					}
 				</div>
