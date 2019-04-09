@@ -25,6 +25,8 @@ export default class extends Component {
 			Object.assign(newData, {fileName: fileOrURL.name, dataType: dataType}); //TODO maybe move this into readInp
 			if (dataType === 'video'){
 				Object.assign(newData, {vidStartTime: this.state.timeBar})
+			} else if (dataType === 'plot'){
+				this.setTimebar(newData.data[0][newData.meta.fields[0]])
 			}
 			const augmentedRegionsData = this.state.regionsData.slice();
 			augmentedRegionsData[region] = newData;

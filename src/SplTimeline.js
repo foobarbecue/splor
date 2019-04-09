@@ -27,7 +27,7 @@ export default class SplTimeline extends Component {
 							if(regionData.hasOwnProperty('duration')){
 								return({
 									content: regionData.fileName,
-									start: this.props.timeBar,
+									start: regionData.vidStartTime,
 									end: new Date(regionData.vidStartTime.getTime() + regionData.duration * 1000)
 								})
 							}
