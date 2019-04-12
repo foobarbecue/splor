@@ -5,6 +5,10 @@ export default class SplTimeline extends Component {
 	constructor(props) {
 		super(props);
 		this.timelineRef = React.createRef();
+		this.jsvizTlOptions = {
+			showCurrentTime: false,
+			onMove: this.onMoveItem
+		}
 	}
 
 	getTimelineItemsFromData = (regionsData) => {
@@ -15,8 +19,7 @@ export default class SplTimeline extends Component {
 						const nRows = regionData.data.length;
 						return (
 							{
-								// id: region,
-								// group: 1,
+								region: region,
 								content: regionData.fileName,
 								start: regionData.data[0][firstColName],
 								end: regionData.data[nRows - 1][firstColName]
@@ -26,9 +29,13 @@ export default class SplTimeline extends Component {
 						{
 							if(regionData.hasOwnProperty('duration')){
 								return({
+									region: region,
 									content: regionData.fileName,
 									start: regionData.vidStartTime,
-									end: new Date(regionData.vidStartTime.getTime() + regionData.duration * 1000)
+									end: new Date(regionData.vidStartTime.getTime() + regionData.duration * 1000),
+									editable: {
+										updateTime: true
+									}
 								})
 							}
 						}
@@ -43,6 +50,11 @@ export default class SplTimeline extends Component {
 		this.props.setTimebar(time)
 	};
 
+	onMoveItem = (item, callbackCallback) => {
+		console.log(item);
+		this.props.setVidStart(item.region, item.start)
+	};
+
 	componentDidUpdate(prevProps, prevState, snapshot) {
 		// If data is added or removed, zoom to fit
 		if (prevProps.regionsData != this.props.regionsData){
@@ -55,8 +67,8 @@ export default class SplTimeline extends Component {
 		return (<div className={'timelineContainer'}>
 				<Timeline
 					ref={this.timelineRef}
-					items={items} // TODO seems to be recalculating on drag
-					options={{showCurrentTime: false}}
+					items={items}
+					options={this.jsvizTlOptions}
 					customTimes = {{timeBar: this.props.timeBar}}
 					timechangeHandler = {this.onTimebarDrag}
 				/>

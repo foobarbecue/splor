@@ -90,6 +90,7 @@ export default class extends Component {
 						regionsData={this.state.regionsData}
 						timeBar={this.state.timeBar}
 						setTimebar={this.setTimebar}
+						setVidStart={this.setVidStart}
 					/>
 					}
 				</div>
