@@ -1,4 +1,4 @@
-import {FlexibleXYPlot, XAxis, YAxis, LineSeriesCanvas, Crosshair} from 'react-vis'
+import {FlexibleXYPlot, XAxis, YAxis, LineSeriesCanvas, Crosshair, Highlight} from 'react-vis'
 import React, {Component} from 'react'
 
 export default function SplPlot(props){
@@ -26,10 +26,24 @@ export class OneLineTSPlot extends Component {
 				y: row[props.plotData.meta.fields[1]]
 			}));
 
-		this.state = {startTime: this.data[0].x}
+		this.state = {xDomain: null, yDomain: null}
 	}
 
 	is_timeseries = () => (this.data[0]['x'] instanceof Date);
+
+	zoomTo = (area) => {
+		this.setState({
+			xDomain: [area.left, area.right],
+			yDomain: [area.bottom, area.top]
+		})
+	};
+
+	resetZoom = () =>{
+		this.setState({
+			xDomain: null,
+			yDomain: null
+		})
+	};
 
 	render() {
 		return (
@@ -39,6 +53,8 @@ export class OneLineTSPlot extends Component {
 				</h2>
 				<FlexibleXYPlot
 					xType={this.is_timeseries ? "time" : "linear"}
+					xDomain={this.state.xDomain}
+					yDomain={this.state.yDomain}
 				>
 
 					<LineSeriesCanvas
@@ -48,7 +64,21 @@ export class OneLineTSPlot extends Component {
 					>test</Crosshair>
 					<XAxis title={this.props.plotData.meta.fields[0]}/>
 					<YAxis title={this.props.plotData.meta.fields[1]}/>
+					<Highlight
+						onBrushEnd={this.zoomTo}
+					/>
 				</FlexibleXYPlot>
+				{(this.state.xDomain || this.state.yDomain) &&
+
+				<button
+					onClick={()=>{this.resetZoom()}}
+					style={{
+						position: 'absolute',
+						bottom: '40px',
+						left: '40px'
+					}}
+				>Reset zoom</button>
+				}
 			</div>
 		)
 	}
