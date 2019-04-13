@@ -1,4 +1,4 @@
-import {FlexibleXYPlot, XAxis, YAxis, LineSeriesCanvas, Crosshair, Highlight} from 'react-vis'
+import {FlexibleXYPlot, XAxis, YAxis, LineSeriesCanvas, Crosshair, Highlight, Borders} from 'react-vis'
 import React, {Component} from 'react'
 
 export default function SplPlot(props){
@@ -62,6 +62,7 @@ export class OneLineTSPlot extends Component {
 					<Crosshair
 						values={this.props.timeBar ? [{x: this.props.timeBar.getTime(), y: 0}] : null}
 					>test</Crosshair>
+					<Borders style={{all: {fill: '#fff'}}} />
 					<XAxis title={this.props.plotData.meta.fields[0]}/>
 					<YAxis title={this.props.plotData.meta.fields[1]}/>
 					<Highlight

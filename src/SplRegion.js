@@ -88,6 +88,12 @@ export default class SplRegion extends Component {
 				)
 		} else if (this.props.regionData.dataType === "video") {
 			return (
+				// TODO probably needs own component
+				<>
+				<div>
+					<img alt={'anchor icon'} src={'/icons/iconmonstr-anchor-3.svg'} />
+					{this.props.regionData.vidStartTime.toISOString()}
+
 				<Player
 					ref = {this.playerRef}
 					key={this.props.region} // region number
@@ -99,6 +105,8 @@ export default class SplRegion extends Component {
 					onSeek={this.onVidSeek}
 					onDuration={this.onVidDuration}
 				/>
+				</div>
+				</>
 				)
 		}
 		}
