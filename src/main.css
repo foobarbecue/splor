@@ -10,3 +10,16 @@ canvas.rv-xy-canvas-element {
 body {
     margin: 0;
 }
+
+h2 {
+    font-size: 1em;
+    font-family: sans-serif;
+}
+
+img.timeAnchor{
+    height: 1em;
+}
+
+span.regionTitle{
+    font-weight: bold;
+}

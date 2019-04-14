@@ -48,7 +48,7 @@ export class OneLineTSPlot extends Component {
 	render() {
 		return (
 			<div style={{position:'relative'}}>
-				<h2 style={{position:'absolute', right: '0%'}}>
+				<h2 style={{position:'absolute', right: '0'}}>
 					{this.props.plotData.fileName}
 				</h2>
 				<FlexibleXYPlot

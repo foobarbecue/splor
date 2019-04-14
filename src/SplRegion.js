@@ -90,10 +90,14 @@ export default class SplRegion extends Component {
 			return (
 				// TODO probably needs own component
 				<>
-				<div>
-					<img alt={'anchor icon'} src={'/icons/iconmonstr-anchor-3.svg'} />
+				<div className={'regionHeader'} style={{position:'relative'}}>
+					<div style={{position:'absolute', width:'100%'}}>
+						<span className={'regionTitle'} style={{float:'left'}}>{this.props.regionData.fileName}</span>
+					<span style={{float:'right'}}>
+						<img className={'timeAnchor'} alt={'anchor icon'} src={'/icons/iconmonstr-anchor-3.svg'} />
 					{this.props.regionData.vidStartTime.toISOString()}
-
+					</span>
+					</div>
 				<Player
 					ref = {this.playerRef}
 					key={this.props.region} // region number
