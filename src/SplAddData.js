@@ -6,7 +6,7 @@ const SplAddData = ()=>
 	<form>
 		<input
 			type={"file"}
-			onChange={readInp}
+			onChange={(evt)=>readInp(evt.target.files[0])}
 		/>
 	</form>
 
