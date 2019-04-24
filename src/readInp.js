@@ -1,13 +1,12 @@
 import React from 'react'
 import { open as rosopen } from 'rosbag'
 import Papa from '@foobarbecue/papaparse'
+import { dataPanes } from "./stores";
 
-export default function readInp(acceptedFile, regionId){
-	const dispatchAddPlotData = useGlobal(addPlotDataReducer)
-
+export default function readInp(acceptedFile){
+	
 	Papa.parse(acceptedFile, {
-		complete: (plotData) => dispatchAddPlotData(addPlotDataAC(plotData, regionId))
+		complete: (plotData) => dataPanes.add(plotData)
 		}
 	)
-
 }

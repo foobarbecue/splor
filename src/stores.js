@@ -24,8 +24,11 @@ export const dataPanes = store(
 		],
 		get allPlots () {
 			return dataPanes.all.filter(dataPane => dataPane.dataType === "initial")
+		},
+		add (plotData) {
+			console.log(plotData)
 		}
 	}
 );
 
-export const timebar =	store( new Date() )
+export let timebar =	store( new Date() )
