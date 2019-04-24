@@ -1,9 +1,8 @@
-import React from 'reactn';
+import React from 'react';
 import SplPlot from './SplPlot'
-import SplDropzone from './SplDropzone'
 import Player from 'react-player'
 
-const SplDataRegion = (props) => {
+const SplDataPane = (props) => {
 	switch (props.dataType) {
 
 		case 'plot':
@@ -15,11 +14,8 @@ const SplDataRegion = (props) => {
 			break;
 
 		default:
-			return <SplDropzone
-				key={props.id}
-				onAddData={props.onAddData}
-			/>
+			return <div> unknown data pane type </div>
 	}
 }
 
-export default SplDataRegion
+export default SplDataPane

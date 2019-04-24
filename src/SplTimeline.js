@@ -1,5 +1,6 @@
 import Timeline from 'react-visjs-timeline'
-import React, {setGlobal, useGlobal} from 'reactn';
+import React from 'react';
+import { store, view } from 'react-easy-state'
 
 /**
  * Collect start and end times of the videos and plot data and convert to visjs timeline format
@@ -49,17 +50,13 @@ const jsvizTlOptions = {
 	onMove: onMoveItem
 }
 
-export default function SplTimeline(){
-	const [timebar, setTimebar] = useGlobal('timebar');
-	const [events] = useGlobal('events'); // not used yet
-	const [regionsData] = useGlobal('regionsData');
-
-	return(
-		<Timeline
-			items={getTimelineItemsFromData(regionsData)}
+const SplTimeline = view(()=>
+	<Timeline
+			items={getTimelineItemsFromData(dataPanes)}
 			options={jsvizTlOptions}
 			customTimes = {{timebar}}
 			timechangeHandler = {setTimebar}
-		/>
-	)
-}
+	/>
+)
+
+export default SplTimeline

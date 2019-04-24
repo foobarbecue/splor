@@ -1,40 +1,23 @@
 import React from "react";
-import {setGlobal, useGlobal} from 'reactn';
+import { view } from 'react-easy-state'
+import { dataPanes } from './stores'
 import SplTimeline from './SplTimeline'
-import SplDataRegion from './SplDataRegion'
-import uuidv4 from 'uuid/v4'
+import SplDataPane from './SplDataPane'
+import SplAddData from './SplAddData'
 
-const fixtures = {
-	regionsData: [
-		{id: uuidv4(),
-			data:[],
-			dataType:"",
-			errors:[],
-			fileName:"notAfile.csv",
-			meta:{}},
-		{}
-	],
-	events: [],
-	timebar: new Date()
-}
-
-setGlobal(fixtures);
-
-// addReducer('addItem')
-
-const App = () => {
-	const [regionsData] = useGlobal('regionsData');
+const App = view(() => {
 	return (
 		<div>
-			{regionsData.map(region =>
-				<SplDataRegion
-					key = {region.id}
-					{...region}
+			{dataPanes.all.map(pane =>
+				<SplDataPane
+					key = {pane.id}
+					{...pane}
 				/>
 			)}
+			<SplAddData />
 			<SplTimeline />
 		</div>
 	)
-};
+});
 
 export default App
