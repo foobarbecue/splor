@@ -2,15 +2,13 @@ import {FlexibleXYPlot, XAxis, YAxis, LineSeriesCanvas, Crosshair, Highlight, Bo
 import React, {Component} from 'react'
 
 export default function SplPlot(props){
-	if (props.regionData.meta.fields.length === 2) {
+	if (props.meta.fields.length === 2) {
 		return <OneLineTSPlot
-			plotData={props.regionData}
-			timeBar={props.timeBar}
+			{...props}
 		/>
-	} else if (props.regionData.meta.fields.length > 2) {
+	} else if (props.meta.fields.length > 2) {
 		return <MultilineTSPlot
-			plotData={props.regionData}
-			timeBar={props.timeBar}
+			{...props}
 		/>
 	}
 }
@@ -20,10 +18,10 @@ export class OneLineTSPlot extends Component {
 		super(props);
 		// React-vis wants objects with keys "x" and "y", so rename.
 		// Field names are still in props.plotData.meta.fields
-		this.data = props.plotData.data.map(
+		this.data = props.data.map(
 			(row) => ({
-				x: row[props.plotData.meta.fields[0]],
-				y: row[props.plotData.meta.fields[1]]
+				x: row[props.meta.fields[0]],
+				y: row[props.meta.fields[1]]
 			}));
 
 		this.state = {xDomain: null, yDomain: null}
@@ -49,7 +47,7 @@ export class OneLineTSPlot extends Component {
 		return (
 			<div style={{position:'relative'}}>
 				<h2 style={{position:'absolute', right: '0'}}>
-					{this.props.plotData.fileName}
+					{this.props.fileName}
 				</h2>
 				<FlexibleXYPlot
 					xType={this.is_timeseries ? "time" : "linear"}
@@ -63,8 +61,8 @@ export class OneLineTSPlot extends Component {
 						values={this.props.timeBar ? [{x: this.props.timeBar.getTime(), y: 0}] : null}
 					>test</Crosshair>
 					<Borders style={{all: {fill: '#fff'}}} />
-					<XAxis title={this.props.plotData.meta.fields[0]}/>
-					<YAxis title={this.props.plotData.meta.fields[1]}/>
+					<XAxis title={this.props.meta.fields[0]}/>
+					<YAxis title={this.props.meta.fields[1]}/>
 					<Highlight
 						onBrushEnd={this.zoomTo}
 					/>

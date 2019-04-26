@@ -25,8 +25,13 @@ export const dataPanes = store(
 		get allPlots () {
 			return dataPanes.all.filter(dataPane => dataPane.dataType === "initial")
 		},
-		add (plotData) {
-			console.log(plotData)
+		addPlot (plotData, acceptedFile) {
+			dataPanes.all.push(
+				{id:uuidv4(),
+					dataType:"plot",
+					fileInfo: acceptedFile,
+					...plotData}
+				)
 		}
 	}
 );

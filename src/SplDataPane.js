@@ -9,6 +9,8 @@ const SplDataPane = (props) => {
 			return <SplPlot
 				key={props.id}
 				data={props.data}
+				meta={props.meta}
+				fileInfo={props.fileInfo}
 				timebar={props.timebar}
 			/>
 			break;

@@ -5,7 +5,10 @@ import { dataPanes } from "./stores";
 
 export default function readInp(acceptedFile){
 	Papa.parse(acceptedFile, {
-		complete: (plotData) => dataPanes.add(plotData)
+		complete: (plotData) => dataPanes.addPlot(plotData, acceptedFile),
+		header: true,
+		dynamicTyping: true,
+		skipEmptyLines: true
 		}
 	)
 }
