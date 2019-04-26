@@ -13,14 +13,6 @@ import uuidv4 from 'uuid/v4'
 export const dataPanes = store(
 	{
 		all: [
-			{
-				id:uuidv4(),
-				dataType:"initial"
-			},
-			{
-				id:uuidv4(),
-				dataType:"initial"
-			}
 		],
 		get allPlots () {
 			return dataPanes.all.filter(dataPane => dataPane.dataType === "initial")

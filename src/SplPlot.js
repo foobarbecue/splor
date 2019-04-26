@@ -31,10 +31,12 @@ export class OneLineTSPlot extends Component {
 	is_timeseries = () => (this.data[0]['x'] instanceof Date);
 
 	zoomTo = (area) => {
-		this.setState({
-			xDomain: [area.left, area.right],
-			yDomain: [area.bottom, area.top]
-		})
+		if (!!area) {
+			this.setState({
+				xDomain: [area.left, area.right],
+				yDomain: [area.bottom, area.top]
+			})
+		}
 	};
 
 	resetZoom = () =>{
