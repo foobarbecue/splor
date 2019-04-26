@@ -1,5 +1,6 @@
 import {FlexibleXYPlot, XAxis, YAxis, LineSeriesCanvas, Crosshair, Highlight, Borders} from 'react-vis'
 import React, {Component} from 'react'
+import '../node_modules/react-vis/dist/style.css';
 
 export default function SplPlot(props){
 	if (props.meta.fields.length === 2) {
