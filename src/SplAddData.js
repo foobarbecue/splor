@@ -10,7 +10,12 @@ const SplAddData = ()=>
 	}}>
 		<input
 			type={"file"}
-			onChange={(evt)=>readInp(evt.target.files[0])}
+			multiple={"multiple"}
+			onChange={(evt)=>{
+				for (const inpFile of evt.target.files){
+					readInp(inpFile)
+				}
+			}}
 		/>
 	</form>
 

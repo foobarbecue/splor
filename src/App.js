@@ -21,8 +21,7 @@ const App = view(() => {
 			<div style={{
 				display: 'grid',
 				gridGap: '20px',
-				gridTemplateColumns: 'repeat(auto-fit, minmax(0, 1fr)',
-				gridAutoFlow: 'column',
+				gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr)',
 				position: 'absolute',
 				top: '150px',
 				bottom: '150px',
