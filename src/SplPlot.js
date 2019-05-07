@@ -46,6 +46,11 @@ export class OneLineTSPlot extends Component {
 		})
 	};
 
+	componentDidUpdate(prevProps, prevState, snapshot) {
+		// Manually trigger a window resize to get react-vis to fit plots into css grid
+		window.dispatchEvent(new Event('resize'));
+	}
+
 	render() {
 		return (
 			<div style={{position:'relative'}}>
