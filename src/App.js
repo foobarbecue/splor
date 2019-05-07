@@ -13,7 +13,7 @@ const App = view(() => {
 			<div style = {{
 				position:'fixed',
 				top:'0',
-				height:'150px',
+				height:'50px',
 				width:'100%'
 			}}>header
 				<SplAddData 	/>
@@ -22,8 +22,9 @@ const App = view(() => {
 				display: 'grid',
 				gridGap: '20px',
 				gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr)',
-				position: 'absolute',
-				top: '150px',
+				gridTemplateRows: 'repeat(auto-fit, minmax(0px, 1fr)',
+				position: 'fixed',
+				top: '50px',
 				bottom: '150px',
 				width: '100%'
 				// overflow: 'hidden'
