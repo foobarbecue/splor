@@ -1,6 +1,8 @@
 import React from 'react';
 import { MdControlPoint } from 'react-icons/md'
-import readInp from './readInp'
+import { open as rosopen } from 'rosbag'
+import Papa from '@foobarbecue/papaparse'
+import { dataPanes } from "./stores";
 
 const SplAddData = ()=>
 	<form style={{
@@ -18,5 +20,16 @@ const SplAddData = ()=>
 			}}
 		/>
 	</form>
+
+export function readInp(acceptedFile){
+	Papa.parse(acceptedFile, {
+			complete: (plotData) => dataPanes.addPlot(plotData, acceptedFile),
+			header: true,
+			dynamicTyping: true,
+			skipEmptyLines: true
+		}
+	)
+}
+
 
 export default SplAddData
