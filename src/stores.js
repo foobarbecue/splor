@@ -28,4 +28,7 @@ export const dataPanes = store(
 	}
 );
 
-export let timebar =	store( {time: new Date()} )
+export let eventTimes =	store( {
+	cursor: new Date(),
+	all: []
+} )

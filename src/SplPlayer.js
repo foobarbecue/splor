@@ -1,5 +1,5 @@
 import Player from 'react-player'
-import { timebar } from './stores'
+import { eventTimes } from './stores'
 import { view } from 'react-easy-state'
 
 const SplPlayer= view(()=>

@@ -1,7 +1,7 @@
 import Timeline from 'react-visjs-timeline'
 import React from 'react';
 import { store, view } from 'react-easy-state'
-import { dataPanes, timebar } from './stores'
+import { dataPanes, eventTimes } from './stores'
 
 /**
  * Collect start and end times of the videos and plot data and convert to visjs timeline format
@@ -57,9 +57,9 @@ const SplTimeline = view(()=> {
 		return <Timeline
 			items={items}
 			options={jsvizTlOptions}
-			customTimes={timebar.time}
+			customTimes={eventTimes.cursor}
 			timechangeHandler={(newTime) => {
-				timebar = newTime
+				eventTimes.cursor = newTime
 			}}
 		/>
 	}
