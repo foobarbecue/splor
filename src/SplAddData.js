@@ -21,14 +21,22 @@ const SplAddData = ()=>
 		/>
 	</form>
 
+// TODO: This input parser should be replaced with a plugin-based system
 export function readInp(acceptedFile){
-	Papa.parse(acceptedFile, {
-			complete: (plotData) => dataPanes.addPlot(plotData, acceptedFile),
-			header: true,
-			dynamicTyping: true,
-			skipEmptyLines: true
-		}
-	)
+	if (acceptedFile.name.endsWith('csv')){
+		Papa.parse(acceptedFile, {
+				complete: (plotData) => dataPanes.addPlot(plotData, acceptedFile),
+				header: true,
+				dynamicTyping: true,
+				skipEmptyLines: true
+			}
+		)
+	} else if (acceptedFile.name.endsWith('bag')){
+		alert('rosbag not yet implemented, sorry')
+	} else {
+		const vidDataUrl = URL.createObjectURL(acceptedFile);
+		dataPanes.addVid(vidDataUrl, acceptedFile);
+	}
 }
 
 

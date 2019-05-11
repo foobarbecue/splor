@@ -24,8 +24,16 @@ export const dataPanes = store(
 					fileInfo: acceptedFile,
 					...plotData}
 				)
-		}
-	}
+		},
+	addVid (vidDataUrl, acceptedFile){
+		dataPanes.all.push(
+			{id:uuidv4(),
+				dataType:"video",
+				fileInfo: acceptedFile,
+				data: vidDataUrl}
+		)
+  }
+	},
 );
 
 export let eventTimes =	store( {
