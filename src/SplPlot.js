@@ -1,6 +1,8 @@
 import {FlexibleXYPlot, XAxis, YAxis, LineSeriesCanvas, Crosshair, Highlight, Borders} from 'react-vis'
 import React, {Component} from 'react'
 import '../node_modules/react-vis/dist/style.css';
+import {timebar} from "./stores";
+import {view} from "react-easy-state";
 
 export default function SplPlot(props){
 	if (props.meta.fields.length === 2) {
@@ -14,7 +16,7 @@ export default function SplPlot(props){
 	}
 }
 
-export class OneLineTSPlot extends Component {
+class OneLineTSPlot extends Component {
 	constructor(props) {
 		super(props);
 		// React-vis wants objects with keys "x" and "y", so rename.
@@ -52,6 +54,9 @@ export class OneLineTSPlot extends Component {
 	}
 
 	render() {
+		console.log(timebar);
+		// timebar = new Date();
+		console.log(timebar);
 		return (
 			<div style={{position:'relative'}}>
 				<h2 style={{position:'absolute', right: '0'}}>
@@ -66,7 +71,7 @@ export class OneLineTSPlot extends Component {
 					<LineSeriesCanvas
 						data={this.data}/>
 					<Crosshair
-						values={this.props.timeBar ? [{x: this.props.timeBar.getTime(), y: 0}] : null}
+						values={[{x: timebar.time.getTime(), y: 0}]}
 					>test</Crosshair>
 					<Borders style={{all: {fill: '#fff'}}} />
 					<XAxis title={this.props.meta.fields[0]}/>
@@ -90,6 +95,8 @@ export class OneLineTSPlot extends Component {
 		)
 	}
 }
+
+OneLineTSPlot = view(OneLineTSPlot);
 
 export class MultilineTSPlot extends Component {
 	constructor(props) {
@@ -128,7 +135,7 @@ export class MultilineTSPlot extends Component {
 					)}
 
 					<Crosshair
-						values={[{x: (this.state.startTime.getTime() + this.props.timeBar * 1000), y: 0}]}
+						values={[{x: timebar.time.getTime(), y: 0}]}
 					>test</Crosshair>
 					<XAxis title={this.props.plotData.meta.fields[0]}/>
 				</FlexibleXYPlot>

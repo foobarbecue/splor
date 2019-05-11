@@ -15,7 +15,7 @@ const App = view(() => {
 				top:'0',
 				height:'50px',
 				width:'100%'
-			}}>header
+			}}>splor
 				<SplAddData 	/>
 			</div>
 			<div style={{

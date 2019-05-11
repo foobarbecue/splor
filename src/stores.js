@@ -28,4 +28,4 @@ export const dataPanes = store(
 	}
 );
 
-export let timebar =	store( new Date() )
+export let timebar =	store( {time: new Date()} )

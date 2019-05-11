@@ -1,6 +1,6 @@
 import React from 'react';
 import SplPlot from './SplPlot'
-import Player from 'react-player'
+import SplPlayer from './SplPlayer'
 
 const SplDataPane = (props) => {
 	switch (props.dataType) {
@@ -11,7 +11,15 @@ const SplDataPane = (props) => {
 				data={props.data}
 				meta={props.meta}
 				fileInfo={props.fileInfo}
-				timebar={props.timebar}
+			/>
+			break;
+
+		case 'video':
+			return <SplPlayer
+				key={props.id}
+				data={props.data}
+				meta={props.meta}
+				fileInfo={props.fileInfo}
 			/>
 			break;
 
