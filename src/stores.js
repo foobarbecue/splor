@@ -10,6 +10,12 @@ import uuidv4 from 'uuid/v4'
 // 	meta:{}
 // }
 
+export const eventTimes =	store( {
+	cursor: new Date(),
+	userInput: [],
+	timelineNeedsFit: true // The timeline should zoom to fit the data in next update
+} )
+
 export const dataPanes = store(
 	{
 		all: [
@@ -30,13 +36,12 @@ export const dataPanes = store(
 			{id:uuidv4(),
 				dataType:"video",
 				fileInfo: acceptedFile,
-				data: vidDataUrl}
+				data: vidDataUrl,
+				startTime: new Date(eventTimes.cursor) // Copy the cursor time for default video start time
+			}
 		)
   }
 	},
 );
 
-export let eventTimes =	store( {
-	cursor: new Date(),
-	all: []
-} )
+

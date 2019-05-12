@@ -1,7 +1,7 @@
 import Timeline from 'react-visjs-timeline'
-import React from 'react';
-import { store, view } from 'react-easy-state'
-import { dataPanes, eventTimes } from './stores'
+import React, { useEffect } from 'react';
+import { view } from 'react-easy-state'
+import { dataPanes, eventTimes, timelineNeedsFit } from './stores'
 
 /**
  * Collect start and end times of the videos and plot data and convert to visjs timeline format
@@ -47,22 +47,32 @@ const onMoveItem = (item, callbackCallback) => {
 	this.props.setVidStart(item.region, item.start)
 };
 
-const jsvizTlOptions = {
-	showCurrentTime: false,
-	// onMove: onMoveItem
+function SplTimeline(props){
+	const items = getTimelineItemsFromData(dataPanes);
+	let timelineRef = React.createRef();
+	const jsvizTlOptions = {
+		showCurrentTime: false,
+		// onMove: this.onMoveItem
+	}
+
+	useEffect(()=>{
+		if (eventTimes.timelineNeedsFit && timelineRef.current){
+			timelineRef.current.$el.fit();
+			eventTimes.timelineNeedsFit = false;
+			console.log('hopefully not an endless loop')
+		}
+	})
+
+	return <Timeline
+		ref = {timelineRef}
+		items={items}
+		options={jsvizTlOptions}
+		customTimes={eventTimes.cursor}
+		timechangeHandler={(newTime) => {
+			eventTimes.cursor = newTime
+		}}
+	/>
+
 }
 
-const SplTimeline = view(()=> {
-		const items = getTimelineItemsFromData(dataPanes);
-		return <Timeline
-			items={items}
-			options={jsvizTlOptions}
-			customTimes={eventTimes.cursor}
-			timechangeHandler={(newTime) => {
-				eventTimes.cursor = newTime
-			}}
-		/>
-	}
-)
-
-export default SplTimeline
+export default view(SplTimeline)

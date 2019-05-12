@@ -2,7 +2,7 @@ import React from 'react';
 import { MdControlPoint } from 'react-icons/md'
 import { open as rosopen } from 'rosbag'
 import Papa from '@foobarbecue/papaparse'
-import { dataPanes } from "./stores";
+import { dataPanes, eventTimes } from "./stores";
 
 const SplAddData = ()=>
 	<form style={{
@@ -17,6 +17,7 @@ const SplAddData = ()=>
 				for (const inpFile of evt.target.files){
 					readInp(inpFile)
 				}
+				eventTimes.timelineNeedsFit = true;
 			}}
 		/>
 	</form>
