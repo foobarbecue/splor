@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import '../node_modules/react-vis/dist/style.css';
 import { eventTimes } from "./stores";
 import { view } from "react-easy-state";
+import RemoveButton from './RemoveButton'
 
 export default function SplPlot(props){
 	if (props.meta.fields.length === 2) {
@@ -10,9 +11,10 @@ export default function SplPlot(props){
 			{...props}
 		/>
 	} else if (props.meta.fields.length > 2) {
-		return <MultilineTSPlot
-			{...props}
-		/>
+		return <>Multi-column data is not yet implemented</>
+		// return <MultilineTSPlot
+		// 	{...props}
+		// />
 	}
 }
 
@@ -20,7 +22,7 @@ class OneLineTSPlot extends Component {
 	constructor(props) {
 		super(props);
 		// React-vis wants objects with keys "x" and "y", so rename.
-		// Field names are still in props.plotData.meta.fields
+		// Field names are still in props.meta.fields
 		this.data = props.data.map(
 			(row) => ({
 				x: row[props.meta.fields[0]],
@@ -77,6 +79,9 @@ class OneLineTSPlot extends Component {
 						onBrushEnd={this.zoomTo}
 					/>
 				</FlexibleXYPlot>
+				<RemoveButton
+					paneId = {this.props.paneId}
+				/>
 				{(this.state.xDomain || this.state.yDomain) &&
 
 				<button
@@ -94,49 +99,3 @@ class OneLineTSPlot extends Component {
 }
 
 OneLineTSPlot = view(OneLineTSPlot);
-
-export class MultilineTSPlot extends Component {
-	constructor(props) {
-		super(props);
-		// React-vis wants objects with keys "x" and "y", so rename.
-		// Field names are still in props.plotData.meta.fields
-
-		const xfield = props.plotData.meta.fields[0];
-		const yfields = props.plotData.meta.fields.slice(1, props.plotData.meta.fields.length);
-		this.data = [];
-		for (const yfield of yfields) {
-			this.data.push(props.plotData.data.map(
-				(row) => ({
-					x: row[xfield],
-					y: row[yfield]
-				})))
-		}
-
-		this.state = {startTime: this.data[0][0].x}
-	}
-
-	is_timeseries = () => (this.data[0][0]['x'] instanceof Date);
-
-	render() {
-		return (
-			<div>
-				<h2>{this.props.plotData.fileName}</h2>
-				<FlexibleXYPlot
-					xType={this.is_timeseries ? "time" : "linear"}
-				>
-					{this.data.map(
-						(data, index) =>
-							<LineSeriesCanvas
-								ref={index}
-								data={data}/>
-					)}
-
-					<Crosshair
-						values={[{x: eventTimes.cursor.getTime(), y: 0}]}
-					>test</Crosshair>
-					<XAxis title={this.props.plotData.meta.fields[0]}/>
-				</FlexibleXYPlot>
-			</div>
-		)
-	}
-}

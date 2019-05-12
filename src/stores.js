@@ -31,16 +31,24 @@ export const dataPanes = store(
 					...plotData}
 				)
 		},
-	addVid (vidDataUrl, acceptedFile){
-		dataPanes.all.push(
-			{id:uuidv4(),
-				dataType:"video",
-				fileInfo: acceptedFile,
-				data: vidDataUrl,
-				startTime: new Date(eventTimes.cursor) // Copy the cursor time for default video start time
+		addVid (vidDataUrl, acceptedFile){
+			dataPanes.all.push(
+				{id:uuidv4(),
+					dataType:"video",
+					fileInfo: acceptedFile,
+					data: vidDataUrl,
+					startTime: new Date(eventTimes.cursor) // Copy the cursor time for default video start time
+				}
+			)
+		},
+		removePane (idToRemove){
+			dataPanes.all = dataPanes.all.filter(
+				(item)=>{
+					if (item.id != idToRemove){
+						return item
+					}
+				})
 			}
-		)
-  }
 	},
 );
 
