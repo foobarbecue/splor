@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {view} from 'react-easy-state'
 import {dataPanes} from './stores'
 import SplTimeline from './SplTimeline'
@@ -7,6 +7,11 @@ import SplAddData from './SplAddData'
 import './App.css'
 
 const App = view(() => {
+	useEffect(
+		// Manually trigger a window resize to get react-vis to fit plots into css grid
+		()=>{window.dispatchEvent(new Event('resize'));}
+	)
+
 	return (
 		<div>
 
