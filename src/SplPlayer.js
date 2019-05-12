@@ -7,6 +7,8 @@ const SplPlayer= view((props)=>
 	<Player
 			url={props.data}
 			controls
+			height='100%'
+			width='100%'
 	/>
 )
 
