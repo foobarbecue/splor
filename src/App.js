@@ -22,11 +22,12 @@ const App = view(() => {
 				display: 'grid',
 				gridGap: '20px',
 				gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr)',
-				gridTemplateRows: 'repeat(auto-fit, minmax(0px, 1fr)',
+				gridTemplateRows: 'repeat(auto-fit, minmax(20%, 1fr)',
+				gridAutoFlow:'rows',
 				position: 'fixed',
 				top: '50px',
 				bottom: '150px',
-				width: '100%'
+				width: '100%',
 				// overflow: 'hidden'
 			}}>
 				{dataPanes.all.map(pane =>

@@ -59,7 +59,6 @@ function SplTimeline(props){
 		if (eventTimes.timelineNeedsFit && timelineRef.current){
 			timelineRef.current.$el.fit();
 			eventTimes.timelineNeedsFit = false;
-			console.log('hopefully not an endless loop')
 		}
 	})
 
