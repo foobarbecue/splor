@@ -10,11 +10,10 @@ import uuidv4 from 'uuid/v4'
 // 	meta:{}
 // }
 
-export const eventTimes =	store( {
+export const eventTimes =	store({
 	cursor: new Date(),
-	userInput: [],
-	timelineNeedsFit: true // The timeline should zoom to fit the data in next update
-} )
+	userInput: []
+})
 
 export const dataPanes = store(
 	{

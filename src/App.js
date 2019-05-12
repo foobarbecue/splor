@@ -48,8 +48,7 @@ const App = view(() => {
 				height:'150px',
 				width:'100%'
 			}}>
-			<SplTimeline
-			/>
+				{dataPanes.all.length > 0 && <SplTimeline />}
 			</div>
 		</div>
 	)

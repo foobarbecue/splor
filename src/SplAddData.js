@@ -17,7 +17,6 @@ const SplAddData = ()=>
 				for (const inpFile of evt.target.files){
 					readInp(inpFile)
 				}
-				eventTimes.timelineNeedsFit = true;
 			}}
 		/>
 	</form>

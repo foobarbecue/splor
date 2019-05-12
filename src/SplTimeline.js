@@ -8,7 +8,7 @@ import { dataPanes, eventTimes, timelineNeedsFit } from './stores'
  */
 const getTimelineItemsFromData = (regionsData) => {
 	if (regionsData.all.length === 0){
-		return [{start: new Date(), end: new Date('2020-12-17T03:24:00'), content: "frump"}]
+		return []
 	}
 	const timelineItems = regionsData.all.map(
 		(regionData) => {
@@ -56,9 +56,8 @@ function SplTimeline(props){
 	}
 
 	useEffect(()=>{
-		if (eventTimes.timelineNeedsFit && timelineRef.current){
-			timelineRef.current.$el.fit();
-			eventTimes.timelineNeedsFit = false;
+		if (timelineRef.current){
+			timelineRef.current.$el.fit()
 		}
 	})
 
