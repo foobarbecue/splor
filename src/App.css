@@ -3,6 +3,10 @@ canvas.rv-xy-canvas-element {
     height: inherit !important;
 }
 
+div.rv-xy-plot {
+    overflow: hidden;
+}
+
 .timelineContainer {
     grid-area: timeline;
 }

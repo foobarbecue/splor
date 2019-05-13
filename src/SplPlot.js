@@ -5,7 +5,7 @@ import { eventTimes } from "./stores";
 import { view } from "react-easy-state";
 import RemoveButton from './RemoveButton'
 
-export default function SplPlot(props){
+export default view(function SplPlot(props){
 	if (props.meta.fields.length === 2) {
 		return <OneLineTSPlot
 			{...props}
@@ -16,7 +16,7 @@ export default function SplPlot(props){
 		// 	{...props}
 		// />
 	}
-}
+})
 
 class OneLineTSPlot extends Component {
 	constructor(props) {
@@ -51,6 +51,7 @@ class OneLineTSPlot extends Component {
 	};
 
 	render() {
+		const timeCursor = eventTimes.cursor
 		return (
 			<div style={{position:'relative'}}>
 				<h2 style={{position:'absolute', right: '0'}}>
@@ -65,7 +66,7 @@ class OneLineTSPlot extends Component {
 					<LineSeriesCanvas
 						data={this.data}/>
 					<Crosshair
-						values={[{x: eventTimes.cursor.getTime(), y: 0}]}
+						values={[{x: timeCursor.getTime(), y: 0}]}
 					>test</Crosshair>
 					<Borders style={{all: {fill: '#fff'}}} />
 					<XAxis title={this.props.meta.fields[0]}/>
