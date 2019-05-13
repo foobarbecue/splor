@@ -29,6 +29,7 @@ export const dataPanes = store(
 					fileInfo: acceptedFile,
 					...plotData}
 				)
+			eventTimes.cursor = plotData.data[0][plotData.meta.fields[0]] // Set time cursor to first time value in new plot
 		},
 		addVid (vidDataUrl, acceptedFile){
 			dataPanes.all.push(

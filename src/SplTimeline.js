@@ -65,7 +65,7 @@ function SplTimeline(props){
 		ref = {timelineRef}
 		items={items}
 		options={jsvizTlOptions}
-		customTimes={eventTimes.cursor}
+		customTimes={{cursor:eventTimes.cursor}}
 		timechangeHandler={(newTime) => {
 			eventTimes.cursor = newTime
 		}}
