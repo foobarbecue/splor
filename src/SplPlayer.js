@@ -9,13 +9,14 @@ const SplPlayer= view((props)=>
 		style={{position:'relative'}}
 	>
 	<Player
-			url={props.data}
+			url={props.paneObj.data}
 			controls
 			height='100%'
 			width='100%'
+			onDuration={(duration)=>props.paneObj.duration = duration}
 	/>
 	<RemoveButton
-		paneId = {props.paneId}
+		paneId = {props.paneObj.id}
 	/>
 	</div>
 )

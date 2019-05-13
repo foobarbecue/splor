@@ -26,9 +26,9 @@ const getTimelineItemsFromData = (regionsData) => {
 				{
 					if(regionData.hasOwnProperty('duration')){
 						return({
-							start: regionData.vidStartTime,
-							end: new Date(regionData.vidStartTime.getTime() + regionData.duration * 1000),
-							content: regionData.fileName,
+							start: regionData.startTime,
+							end: new Date(regionData.startTime.getTime() + regionData.duration * 1000),
+							content: regionData.fileInfo.name,
 							// editable: {
 							// 	updateTime: true
 							// }

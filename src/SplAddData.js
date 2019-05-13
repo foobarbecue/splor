@@ -22,8 +22,8 @@ const SplAddData = ()=>
 	</form>
 
 // TODO: This input parser should be replaced with a plugin-based system
-export function readInp(acceptedFile){
-	if (acceptedFile.name.endsWith('csv')){
+export function readInp(acceptedFile) {
+	if (acceptedFile.name.endsWith('csv')) {
 		Papa.parse(acceptedFile, {
 				complete: (plotData) => dataPanes.addPlot(plotData, acceptedFile),
 				header: true,
@@ -31,8 +31,10 @@ export function readInp(acceptedFile){
 				skipEmptyLines: true
 			}
 		)
-	} else if (acceptedFile.name.endsWith('bag')){
+	} else if (acceptedFile.name.endsWith('bag')) {
 		alert('rosbag not yet implemented, sorry')
+	} else if (acceptedFile.name.endsWith('sqlite')) {
+		alert('sqlite not yet implemented, sorry')
 	} else {
 		const vidDataUrl = URL.createObjectURL(acceptedFile);
 		dataPanes.addVid(vidDataUrl, acceptedFile);

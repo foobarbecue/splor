@@ -39,6 +39,7 @@ export const dataPanes = store(
 					data: vidDataUrl,
 					startTime: new Date(eventTimes.cursor) // Copy the cursor time for default video start time
 				}
+
 			)
 		},
 		removePane (idToRemove){

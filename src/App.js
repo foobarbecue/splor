@@ -38,7 +38,7 @@ const App = view(() => {
 				{dataPanes.all.map(pane =>
 					<SplDataPane
 						key={pane.id}
-						{...pane}
+						paneObj = {pane}
 					/>
 				)}
 			</div>

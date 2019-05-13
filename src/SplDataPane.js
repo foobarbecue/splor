@@ -4,15 +4,15 @@ import SplPlayer from './SplPlayer'
 import { view } from 'react-easy-state'
 
 const SplDataPane = (props) => {
-	switch (props.dataType) {
+	switch (props.paneObj.dataType) {
 
 		case 'plot':
 			return <>
 			<SplPlot
-				paneId={props.id}
-				data={props.data}
-				meta={props.meta}
-				fileInfo={props.fileInfo}
+				paneId={props.paneObj.id}
+				data={props.paneObj.data}
+				meta={props.paneObj.meta}
+				fileInfo={props.paneObj.fileInfo}
 			/>
 			</>
 			break;
@@ -20,10 +20,8 @@ const SplDataPane = (props) => {
 		case 'video':
 			return <>
 			<SplPlayer
-				paneId={props.id}
-				data={props.data}
-				meta={props.meta}
-				fileInfo={props.fileInfo}
+				key={props.paneObj.id}
+				paneObj={props.paneObj}
 			/>
 			</>
 			break;
