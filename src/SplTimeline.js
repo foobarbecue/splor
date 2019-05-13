@@ -29,9 +29,10 @@ const getTimelineItemsFromData = (regionsData) => {
 							start: regionData.startTime,
 							end: new Date(regionData.startTime.getTime() + regionData.duration * 1000),
 							content: regionData.fileInfo.name,
-							// editable: {
-							// 	updateTime: true
-							// }
+							editable: {
+								updateTime: true
+							},
+							paneObj:regionData
 						})
 					}
 				}
@@ -44,7 +45,7 @@ const getTimelineItemsFromData = (regionsData) => {
 
 const onMoveItem = (item, callbackCallback) => {
 	console.log(item);
-	this.props.setVidStart(item.region, item.start)
+	item.paneObj.startTime = item.start
 };
 
 function SplTimeline(props){
@@ -52,7 +53,7 @@ function SplTimeline(props){
 	let timelineRef = React.createRef();
 	const jsvizTlOptions = {
 		showCurrentTime: false,
-		// onMove: this.onMoveItem
+		onMove: onMoveItem
 	}
 
 	useEffect(()=>{
