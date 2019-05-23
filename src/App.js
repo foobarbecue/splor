@@ -14,16 +14,16 @@ const App = view(() => {
 
 	return (
 		<div>
-
+			<SplAddData />
 			<div style = {{
 				position:'fixed',
 				top:'0',
 				height:'50px',
 				width:'100%'
 			}}>splor
-				<SplAddData 	/>
 			</div>
-			<div style={{
+
+			{dataPanes.all.length > 0 && <div style={{
 				display: 'grid',
 				gridGap: '20px',
 				gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr)',
@@ -33,6 +33,7 @@ const App = view(() => {
 				top: '50px',
 				bottom: '150px',
 				width: '100%',
+				zIndex: 20
 				// overflow: 'hidden'
 			}}>
 				{dataPanes.all.map(pane =>
@@ -41,7 +42,7 @@ const App = view(() => {
 						paneObj = {pane}
 					/>
 				)}
-			</div>
+			</div>}
 			<div id={"timeline"} style = {{
 				position:'fixed',
 				bottom:'0',

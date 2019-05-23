@@ -5,21 +5,20 @@ import Papa from '@foobarbecue/papaparse'
 import { dataPanes, eventTimes } from "./stores";
 
 const SplAddData = ()=>
-	<form style={{
-		position:"fixed",
-		top:"0",
-		right:"0"
-	}}>
+	<div style={{height: '100%', width: '100%', position: 'relative', 'zIndex': 10}}>
 		<input
 			type={"file"}
+			name={"uploadChooser"}
+			id={"uploadChooser"}
 			multiple={"multiple"}
 			onChange={(evt)=>{
 				for (const inpFile of evt.target.files){
 					readInp(inpFile)
 				}
 			}}
+			style={{position: 'fixed', width: '100%', height: '100%'}}
 		/>
-	</form>
+	</div>
 
 // TODO: This input parser should be replaced with a plugin-based system
 export function readInp(acceptedFile) {
