@@ -7,8 +7,8 @@ div.rv-xy-plot {
     overflow: hidden;
 }
 
-.timelineContainer {
-    grid-area: timeline;
+.vis-timeline {
+    visibility: visible !important;
 }
 
 body {

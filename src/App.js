@@ -44,10 +44,11 @@ const App = view(() => {
 				)}
 			</div>}
 			<div id={"timeline"} style = {{
-				position:'fixed',
-				bottom:'0',
+				position:'absolute',
+				bottom: 0,
 				height:'150px',
-				width:'100%'
+				width:'100%',
+				zIndex: 30
 			}}>
 				{dataPanes.all.length > 0 && <SplTimeline />}
 			</div>
