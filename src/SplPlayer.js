@@ -8,16 +8,21 @@ const SplPlayer= view((props)=>
 	<div
 		style={{position:'relative'}}
 	>
-	<Player
-			url={props.paneObj.data}
-			controls
-			height='100%'
-			width='100%'
-			onDuration={(duration)=>props.paneObj.duration = duration}
-	/>
-	<RemoveButton
-		paneId = {props.paneObj.id}
-	/>
+		<Player
+				url={props.paneObj.data}
+				controls
+				height='100%'
+				width='100%'
+				onDuration={(duration)=>props.paneObj.duration = duration}
+		/>
+		<div style={{position:'absolute', right:'50px', top:'10px'}}>
+			<h2 style={{margin: '0px'}}>{props.paneObj.fileInfo.name}</h2>
+			Start time: {props.paneObj.startTime.toISOString() || <>unknown</>}
+		</div>
+
+		<RemoveButton
+			paneId = {props.paneObj.id}
+		/>
 	</div>
 )
 
