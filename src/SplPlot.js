@@ -67,7 +67,7 @@ class OneLineTSPlot extends Component {
 						data={this.data}/>
 					<Crosshair
 						values={[{x: timeCursor.getTime(), y: 0}]}
-					>test</Crosshair>
+					>{timeCursor.getTime()}</Crosshair>
 					<Borders style={{all: {fill: '#fff'}}} />
 					<XAxis title={this.props.meta.fields[0]}/>
 					<YAxis title={this.props.meta.fields[1]}/>
