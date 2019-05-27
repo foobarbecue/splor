@@ -5,7 +5,7 @@ import Papa from '@foobarbecue/papaparse'
 import { dataPanes, eventTimes } from "./stores";
 
 const SplAddData = ()=>
-	<div style={{height: '100%', width: '100%', position: 'relative', 'zIndex': 10}}>
+	<div style={{height: '100%', width: '100%', position: 'relative', 'zIndex': 10, direction:'rtl'}}>
 		<input
 			type={"file"}
 			name={"uploadChooser"}

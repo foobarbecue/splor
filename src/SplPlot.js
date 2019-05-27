@@ -54,8 +54,8 @@ class OneLineTSPlot extends Component {
 		const timeCursor = eventTimes.cursor
 		return (
 			<div style={{position:'relative'}}>
-				<h2 style={{position:'absolute', right: '0'}}>
-					{this.props.fileName}
+				<h2 style={{position:'absolute', right:'50px', top:'10px', margin: '0px'}}>
+					{this.props.fileInfo.name}
 				</h2>
 				<FlexibleXYPlot
 					xType={this.is_timeseries ? "time" : "linear"}
