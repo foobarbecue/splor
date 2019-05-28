@@ -31,7 +31,7 @@ const App = view(() => {
         gridAutoFlow: 'rows',
         position: 'fixed',
         top: '50px',
-        bottom: '150px',
+        bottom: '200px',
         width: '100%',
         zIndex: 20
         // overflow: 'hidden'
@@ -46,7 +46,7 @@ const App = view(() => {
       <div id={'timeline'} style={{
         position: 'absolute',
         bottom: 0,
-        height: '150px',
+        height: '200px',
         width: '100%',
         zIndex: 30
       }}>
