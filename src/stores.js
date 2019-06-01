@@ -9,7 +9,7 @@ export const eventTimes = store({
       {
         id: uuidv4(),
         start: time,
-        name: name
+        content: name
       }
     )
   }

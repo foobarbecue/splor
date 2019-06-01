@@ -49,7 +49,8 @@ const onMoveItem = (item, callbackCallback) => {
 
 function SplTimeline (props) {
   const items = getTimelineItemsFromData(dataPanes).concat(eventTimes.userInput)
-  let timelineRef = React.createRef()
+  const timelineRef = React.createRef()
+  const newEventName = React.createRef()
   const jsvizTlOptions = {
     showCurrentTime: false,
     onMove: onMoveItem
@@ -62,10 +63,12 @@ function SplTimeline (props) {
   })
 
   return <>
-      <input type={'text'} name={'eventName'}/>
+      <input ref={newEventName} type={'text'} name={'eventName'}/>
       <button
         type={'button'}
-        onClick={(evt)=>{console.log(evt)}}
+        onClick={
+          () => { eventTimes.addEvent(newEventName.current.value, eventTimes.cursor) }
+        }
       >
         Add event at time cursor
       </button>
