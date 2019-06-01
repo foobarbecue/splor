@@ -3,13 +3,13 @@ import uuidv4 from 'uuid/v4'
 
 export const eventTimes = store({
   cursor: new Date(),
-  userInput: [{ id: 10, content: 'test', start: new Date('Dec 3 2012 18:20:53 GMT-0700') }],
   addEvent (name, time) {
     eventTimes.userInput.push(
       {
         id: uuidv4(),
         start: time,
-        content: name
+        content: name,
+        editable: true
       }
     )
   }
