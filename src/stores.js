@@ -5,7 +5,7 @@ export const eventTimes = store({
   cursor: new Date(),
   userInput: [],
   addEvent (name, time) {
-    eventTimes.userInput.push(
+    let newEvent = eventTimes.userInput.push(
       {
         id: uuidv4(),
         start: time,
@@ -13,6 +13,14 @@ export const eventTimes = store({
         editable: true
       }
     )
+  },
+  removeEvent (idToRemove) {
+    eventTimes.userInput = eventTimes.userInput.filter(
+      (item) => {
+        if (item.id !== idToRemove) {
+          return item
+        }
+      })
   }
 })
 
@@ -40,7 +48,7 @@ export const dataPanes = store(
           dataType: 'video',
           fileInfo: acceptedFile,
           data: vidDataUrl,
-          startTime: new Date(eventTimes.cursor) // Copy the cursor time for default video start time
+          start: new Date(eventTimes.cursor) // Copy the cursor time for default video start time
         }
       )
     },

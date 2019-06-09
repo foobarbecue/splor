@@ -30,7 +30,7 @@ class SplPlayer extends Component {
         onDuration={(duration) => {this.props.paneObj.duration = duration }}
         onProgress={(progressObj) => {
           eventTimes.cursor = new Date(
-            this.props.paneObj.startTime.getTime() + progressObj.playedSeconds * 1000)
+            this.props.paneObj.start.getTime() + progressObj.playedSeconds * 1000)
         }}
       />
       <div style={{ position: 'absolute', right: '50px', top: '10px' }}>

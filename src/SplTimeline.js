@@ -26,8 +26,8 @@ const getTimelineItemsFromData = (regionsData) => {
         {
           if (regionData.hasOwnProperty('duration')) {
             return ({
-              start: regionData.startTime,
-              end: new Date(regionData.startTime.getTime() + regionData.duration * 1000),
+              start: regionData.start,
+              end: new Date(regionData.start.getTime() + regionData.duration * 1000),
               content: regionData.fileInfo.name,
               editable: {
                 updateTime: true
@@ -42,18 +42,32 @@ const getTimelineItemsFromData = (regionsData) => {
   return timelineItems.filter(item => item) // remove undefineds
 }
 
+
+const getTimelineEventsFromData = (eventTimes) => {
+  return (eventTimes.userInput.map(
+    (event) => (
+      {paneObj: event,
+        ...event}
+    )
+  ))
+}
+
 const onMoveItem = (item, callbackCallback) => {
-  console.log(item)
-  item.paneObj.startTime = item.start
+  item.paneObj.start = item.start
+}
+
+const onRemoveItem = (item, callbackCallback) => {
+  eventTimes.removeEvent(item.paneObj.id)
 }
 
 function SplTimeline (props) {
-  const items = getTimelineItemsFromData(dataPanes).concat(eventTimes.userInput)
+  const items = getTimelineItemsFromData(dataPanes).concat(getTimelineEventsFromData(eventTimes))
   const timelineRef = React.createRef()
   const newEventName = React.createRef()
   const jsvizTlOptions = {
     showCurrentTime: false,
-    onMove: onMoveItem
+    onMove: onMoveItem,
+    onRemove: onRemoveItem
   }
 
   useEffect(() => {
