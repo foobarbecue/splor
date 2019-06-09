@@ -1286,4 +1286,4 @@ var e,t=arguments[3],i="function"==typeof Symbol&&"symbol"==typeof Symbol.iterat
 },{"react":"HdMw","react-easy-state":"IRFS","./stores":"D0vy","./SplTimeline":"mDgK","./SplDataPane":"7Nna","./SplAddData":"oJAT","./App.css":"zm16"}],"H99C":[function(require,module,exports) {
 "use strict";var e=u(require("react")),r=u(require("react-dom")),t=u(require("./App"));function u(e){return e&&e.__esModule?e:{default:e}}r.default.render(e.default.createElement(t.default,null),document.getElementById("root"));
 },{"react":"HdMw","react-dom":"X9zx","./App":"FLHj"}]},{},["H99C"], null)
-//# sourceMappingURL=src.674b728b.js.map
+//# sourceMappingURL=/splor/src.674b728b.js.map
