@@ -5,12 +5,14 @@ export const eventTimes = store({
   cursor: new Date(),
   userInput: [],
   addEvent (name, time) {
-    let newEvent = eventTimes.userInput.push(
+    eventTimes.userInput.push(
       {
         id: uuidv4(),
         start: time,
         content: name,
-        editable: true
+        editable: true,
+        type: 'point',
+        group: 'Events'
       }
     )
   },

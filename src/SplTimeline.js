@@ -19,22 +19,22 @@ const getTimelineItemsFromData = (regionsData) => {
           {
             content: regionData.fileInfo.name,
             start: regionData.data[0][firstColName],
-            end: regionData.data[nRows - 1][firstColName]
+            end: regionData.data[nRows - 1][firstColName],
+            group: 'Plots'
           }
         )
       } else if (regionData && regionData.dataType === 'video') {
-        {
-          if (regionData.hasOwnProperty('duration')) {
-            return ({
-              start: regionData.start,
-              end: new Date(regionData.start.getTime() + regionData.duration * 1000),
-              content: regionData.fileInfo.name,
-              editable: {
-                updateTime: true
-              },
-              paneObj: regionData
-            })
-          }
+        if (regionData.hasOwnProperty('duration')) {
+          return ({
+            start: regionData.start,
+            end: new Date(regionData.start.getTime() + regionData.duration * 1000),
+            content: regionData.fileInfo.name,
+            editable: {
+              updateTime: true
+            },
+            group: 'Videos',
+            paneObj: regionData
+          })
         }
       }
     }
@@ -42,12 +42,11 @@ const getTimelineItemsFromData = (regionsData) => {
   return timelineItems.filter(item => item) // remove undefineds
 }
 
-
 const getTimelineEventsFromData = (eventTimes) => {
   return (eventTimes.userInput.map(
     (event) => (
-      {paneObj: event,
-        ...event}
+      { paneObj: event,
+        ...event }
     )
   ))
 }
@@ -90,6 +89,11 @@ function SplTimeline (props) {
       ref={timelineRef}
       items={items}
       options={jsvizTlOptions}
+      groups={[
+        { id: 'Events', content: 'Events' },
+        { id: 'Plots', content: 'Plots' },
+        { id: 'Videos', content: 'Videos' }
+      ]}
       customTimes={{ cursor: eventTimes.cursor }}
       timechangeHandler={(newTime) => {
         eventTimes.cursor = newTime.time

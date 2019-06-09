@@ -27,7 +27,7 @@ class SplPlayer extends Component {
         controls
         height='100%'
         width='100%'
-        onDuration={(duration) => {this.props.paneObj.duration = duration }}
+        onDuration={(duration) => { this.props.paneObj.duration = duration }}
         onProgress={(progressObj) => {
           eventTimes.cursor = new Date(
             this.props.paneObj.start.getTime() + progressObj.playedSeconds * 1000)
@@ -35,7 +35,7 @@ class SplPlayer extends Component {
       />
       <div style={{ position: 'absolute', right: '50px', top: '10px' }}>
         <h2 style={{ margin: '0px' }}>{this.props.paneObj.fileInfo.name}</h2>
-        Start time: {this.props.paneObj.startTime.toISOString() || <>unknown</>}
+        Start time: {this.props.paneObj.start.toISOString() || <>unknown</>}
       </div>
 
       <RemoveButton
