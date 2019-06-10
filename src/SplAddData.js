@@ -16,6 +16,7 @@ const SplAddData = () =>
       }}
       style={{ position: 'fixed', width: '100%', height: '100%' }}
     />
+
   </div>
 
 // TODO: This input parser should be replaced with a plugin-based system

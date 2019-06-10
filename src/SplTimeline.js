@@ -2,6 +2,7 @@ import Timeline from 'react-visjs-timeline'
 import React, { useEffect } from 'react'
 import { view } from 'react-easy-state'
 import { dataPanes, eventTimes } from './stores'
+import { SplIOButtons } from './SplIO'
 
 /**
  * Collect start and end times of the videos and plot data and convert to visjs timeline format
@@ -85,6 +86,7 @@ function SplTimeline (props) {
       >
         Add event at time cursor
       </button>
+      <SplIOButtons />
     <Timeline
       ref={timelineRef}
       items={items}
