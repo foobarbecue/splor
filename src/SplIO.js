@@ -15,8 +15,8 @@ export const SplIOButtons = view(() => <>
     <Link to="/Save">
       <button>Save</button>
     </Link>
-    <button>Load</button>
-    <button>Clear</button>
+    <button disabled={true}>Load</button>
+    <button disabled={true}>Clear</button>
   </>
 )
 
