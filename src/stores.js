@@ -26,6 +26,10 @@ export const eventTimes = store({
   }
 })
 
+export const session = store({
+  id: uuidv4()
+})
+
 export const dataPanes = store(
   {
     all: [],

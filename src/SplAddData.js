@@ -25,7 +25,8 @@ export function readInp (acceptedFile) {
         complete: (plotData) => dataPanes.addPlot(plotData, acceptedFile),
         header: true,
         dynamicTyping: true,
-        skipEmptyLines: true
+        skipEmptyLines: true,
+        comments: '//'
       }
     )
   } else if (acceptedFile.name.endsWith('bag')) {
