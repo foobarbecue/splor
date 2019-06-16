@@ -13,7 +13,7 @@ const getTimelineItemsFromData = (regionsData) => {
   }
   const timelineItems = regionsData.all.map(
     (regionData) => {
-      if (regionData && regionData.dataType === 'plot') {
+      if (regionData.data.length > 0 && regionData.dataType === 'plot') {
         const firstColName = regionData.meta.fields[0]
         const nRows = regionData.data.length
         return (
