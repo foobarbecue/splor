@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { view } from 'react-easy-state'
-import { dataPanes } from './stores'
+import { dataPanes, session } from './stores'
 import SplTimeline from './SplTimeline'
 import SplDataPane from './SplDataPane'
 import SplAddData from './SplAddData'
@@ -20,7 +20,7 @@ const App = view(() => {
         top: '0',
         height: '50px',
         width: '100%'
-      }}>splor
+      }}>splor {session.progress}
       </div>
 
       {dataPanes.all.length > 0 && <div style={{
@@ -56,4 +56,4 @@ const App = view(() => {
   )
 })
 
-export default App
+export default view(App)

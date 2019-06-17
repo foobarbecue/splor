@@ -2,6 +2,7 @@ import React from 'react'
 import SplPlot from './SplPlot'
 import SplPlayer from './SplPlayer'
 import { view } from 'react-easy-state'
+// import line from 'rc-progress'
 
 const SplDataPane = (props) => {
   switch (props.paneObj.dataType) {

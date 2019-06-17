@@ -1,10 +1,10 @@
 import React from 'react'
 import Papa from '@foobarbecue/papaparse'
 import { open as rosopen } from 'rosbag'
-import { dataPanes } from './stores'
+import { dataPanes, session } from './stores'
 import { view } from 'react-easy-state'
 
-const SplAddData = view(() =>
+const SplAddData = () =>
   <div style={{ height: '100%', width: '100%', position: 'relative', 'zIndex': 10, direction: 'rtl' }}>
     <input
       type={'file'}
@@ -19,7 +19,7 @@ const SplAddData = view(() =>
       style={{ position: 'fixed', width: '100%', height: '100%' }}
     />
 
-  </div>)
+  </div>
 
 async function readBag (acceptedFile) {
   const bag = await rosopen(acceptedFile)
@@ -27,9 +27,19 @@ async function readBag (acceptedFile) {
   console.log(newPlot)
   await bag.readMessages({},
     (result) => {
-      const progress = (result.chunkOffset / result.totalChunks)
-      console.log(result)
-      console.log(progress)
+      // Add topic to meta fields list
+      if (!newPlot.meta.fields.includes(result.topic)) {
+        newPlot.meta.fields.push(result.topic)
+      }
+
+      // Add rosbag chunk data to store
+      const resultData = result.data.map((datum) => { return { [result.topic]: datum } })
+      try {
+        newPlot.data[result.topic].push(resultData)
+      } catch {
+        newPlot.data[result.topic] = resultData
+      }
+      session.progress = (result.chunkOffset / result.totalChunks)
     }
   )
 }

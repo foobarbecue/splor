@@ -1,5 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import SplRouter from './Router'
-
-ReactDOM.render(<SplRouter/>, document.getElementById('root'))
+// import SplRouter from './Router'
+import App from './App'
+ReactDOM.render(<App/>, document.getElementById('root'))

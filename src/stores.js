@@ -27,7 +27,8 @@ export const eventTimes = store({
 })
 
 export const session = store({
-  id: uuidv4()
+  id: uuidv4(),
+  progress: 0.0
 })
 
 export const dataPanes = store(
@@ -47,7 +48,7 @@ export const dataPanes = store(
       dataPanes.all.push(
         newPlot
       )
-      if (plotData.data.length > 0){
+      if (plotData.data.length > 0) {
         eventTimes.cursor = plotData.data[0][plotData.meta.fields[0]] // Set time cursor to first time value in new plot
       }
       return newPlot

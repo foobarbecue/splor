@@ -12,9 +12,9 @@ export const SplSave = view(() => {
 })
 
 export const SplIOButtons = view(() => <>
-    <Link to="/Save">
+    <a href="/Save">
       <button>Save</button>
-    </Link>
+    </a>
     <button disabled={true}>Load</button>
     <button disabled={true}>Clear</button>
   </>
