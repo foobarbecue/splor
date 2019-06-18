@@ -1,20 +1,12 @@
 import { Borders, Crosshair, FlexibleXYPlot, Highlight, LineSeriesCanvas, XAxis, YAxis } from 'react-vis'
 import React, { Component } from 'react'
 import '../node_modules/react-vis/dist/style.css'
-import { eventTimes, session } from './stores'
+import { eventTimes, session, dataPanes } from './stores'
 import { view } from 'react-easy-state'
 import RemoveButton from './RemoveButton'
 
-export default view(function SplPlot (props) {
-  console.log(props.meta.fields.length )
-  if (props.meta.fields.length === 2) {
-    return <OneLineTSPlot
-      {...props}
-    />
-  } else if (props.meta.fields.length > 2) {
-    console.log('adding multiline plot')
-    return <div>{props.meta.fields.length}</div>
-  }
+export default view(({data, meta, type, progress}) => {
+  return <> {meta.fields.length}</>
 })
 
 class OneLineTSPlot extends Component {

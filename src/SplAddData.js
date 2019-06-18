@@ -24,6 +24,7 @@ const SplAddData = () =>
 async function readBag (acceptedFile) {
   const bag = await rosopen(acceptedFile)
   const newPlot = dataPanes.addPlot({ data: [], meta: { fields: [] }, errors: [] }, acceptedFile)
+  newPlot.data = {} // todo not great... this was an array, redefining as an object
   console.log(newPlot)
   await bag.readMessages({},
     (result) => {

@@ -4,31 +4,14 @@ import SplPlayer from './SplPlayer'
 import { view } from 'react-easy-state'
 // import line from 'rc-progress'
 
-const SplDataPane = (props) => {
-  switch (props.paneObj.dataType) {
-    case 'plot':
-      return <>
-        <SplPlot
-          paneId={props.paneObj.id}
-          data={props.paneObj.data}
-          meta={props.paneObj.meta}
-          fileInfo={props.paneObj.fileInfo}
-        />
-      </>
-      break
+const SplDataPane = ({data, meta, progress}) => {
 
-    case 'video':
-      return <>
-        <SplPlayer
-          key={props.paneObj.id}
-          paneObj={props.paneObj}
-        />
-      </>
-      break
-
-    default:
-      return <div> unknown data pane type </div>
-  }
+  return <div><select>
+    {meta.fields.map((field)=>
+      <option>{field}</option>)
+    }
+  </select>
+  </div>
 }
 
 export default view(SplDataPane)

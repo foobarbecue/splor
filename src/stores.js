@@ -34,9 +34,6 @@ export const session = store({
 export const dataPanes = store(
   {
     all: [],
-    get allPlots () {
-      return dataPanes.all.filter(dataPane => dataPane.dataType === 'initial')
-    },
     addPlot (plotData, acceptedFile) {
       const newPlot = {
         id: uuidv4(),
