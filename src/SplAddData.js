@@ -34,11 +34,11 @@ async function readBag (acceptedFile) {
       }
 
       // Add rosbag chunk data to store
-      const resultData = result.data.map((datum) => { return { [result.topic]: datum } })
+      // const resultData = result.data.map((datum) => { return { [result.topic]: datum } })
       try {
-        newPlot.data[result.topic].push(resultData)
+        newPlot.data[result.topic].push(result.message)
       } catch {
-        newPlot.data[result.topic] = resultData
+        newPlot.data[result.topic] = [result.message]
       }
       session.progress = (result.chunkOffset / result.totalChunks)
     }
