@@ -1,0 +1,91 @@
+<html>
+<script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+  const xmpl = {
+    'isee0': {
+      'header': { 'seq': 5240, 'stamp': { 'sec': 1557860426, 'nsec': 143040895 }, 'frame_id': '/isee0' },
+      'feed': {
+        'motor_pwm': 400,
+        'limit_switch_fwd_r': true,
+        'limit_switch_fwd_l': false,
+        'limit_switch_bck_r': true,
+        'limit_switch_bck_l': false,
+        'encoder': 21134,
+        'wob': 70.1270751953125,
+        'desired_wob': 100,
+        'desired_rate': 0,
+        'mode': 0
+      },
+      'spin': { 'motor_pwm': 400, 'encoder': 1488244, 'height': { lowheight: 2, medheight: 3, superheight: 5 } },
+      'unclog': { 'motor_pwm': 0, 'limit_switch': false, 'position': 0 },
+      'soh': { 'voltage': 0, 'cpu_usage': 0, 'ram_usage': 0 }
+    },
+    'isee1': {
+      'header': { 'seq': 5240, 'stamp': { 'sec': 1557860426, 'nsec': 143040895 }, 'frame_id': '/isee0' },
+      'feed': {
+        'motor_pwm': 400,
+        'limit_switch_fwd_r': true,
+        'limit_switch_fwd_l': false,
+        'limit_switch_bck_r': true,
+        'limit_switch_bck_l': false,
+        'encoder': 21134,
+        'wob': 70.1270751953125,
+        'desired_wob': 100,
+        'desired_rate': 0,
+        'mode': 0
+      },
+      'spin': { 'motor_pwm': 400, 'encoder': 1488244, 'height': { lowheight: 2, medheight: 3, superheight: 5 } },
+      'unclog': { 'motor_pwm': 0, 'limit_switch': false, 'position': 0 },
+      'soh': { 'voltage': 0, 'cpu_usage': 0, 'ram_usage': 0 }
+    }
+  }
+
+
+
+  class WalkFields extends React.Component {
+    constructor (props) {
+      super(props)
+      this.state = { crumbs: ['isee0', 'spin', 'height'] }
+    }
+
+    walkCrumbs = (obj, crumbs) => {
+      return crumbs.reduce((obj, crumb) => obj[crumb], obj)}
+
+    render () {
+      let subObjs = []
+      const crumbs = this.state.crumbs.slice()
+      while (crumbs.length > 0){
+        subObjs.push(this.walkCrumbs(xmpl, crumbs))
+        crumbs.pop()
+      }
+      subObjs.reverse()
+
+
+      return <div>
+        {subObjs.map((subObj, n) => <><p>{this.state.crumbs[n]}</p> <select key={this.state.crumbs[n]}
+          onChange={(evt) => {this.setState({ crumbs: this.state.crumbs.concat(evt.target.value) })}}>
+          {
+            Object.keys(subObj).map(
+              (child) => <option key={child} value={child}>{child}</option>
+            )
+          }
+        </select></>)}
+
+      </div>
+    }
+  }
+
+  ReactDOM.render(
+    <WalkFields
+      input={xmpl}
+    />, document.getElementById('root')
+  )
+
+</script>
+</body>
+</html>
