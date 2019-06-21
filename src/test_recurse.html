@@ -45,36 +45,49 @@
     }
   }
 
-
-
   class WalkFields extends React.Component {
     constructor (props) {
       super(props)
-      this.state = { crumbs: ['isee0', 'spin', 'height'] }
+      this.state = { crumbs: [] }
     }
 
     walkCrumbs = (obj, crumbs) => {
-      return crumbs.reduce((obj, crumb) => obj[crumb], obj)}
+      return crumbs.reduce((obj, crumb) => obj[crumb], obj)
+    }
+
+
+
+    handleChange = (n) =>{
+      const handleChangeWcontext = (evt) => {
+        console.log(n)
+        const crumbs2 = this.state.crumbs.slice(0,n)
+        crumbs2[n] = evt.target.value
+        this.setState({ crumbs: crumbs2 })
+      }
+      return handleChangeWcontext.bind(this)
+    }
+
 
     render () {
       let subObjs = []
       const crumbs = this.state.crumbs.slice()
-      while (crumbs.length > 0){
+      while (crumbs.length > 0) {
         subObjs.push(this.walkCrumbs(xmpl, crumbs))
         crumbs.pop()
       }
+      subObjs.push(xmpl)
       subObjs.reverse()
 
-
       return <div>
-        {subObjs.map((subObj, n) => <><p>{this.state.crumbs[n]}</p> <select key={this.state.crumbs[n]}
-          onChange={(evt) => {this.setState({ crumbs: this.state.crumbs.concat(evt.target.value) })}}>
-          {
-            Object.keys(subObj).map(
-              (child) => <option key={child} value={child}>{child}</option>
-            )
-          }
-        </select></>)}
+        {subObjs.map((subObj, n) =>
+          <select key={this.state.crumbs[n]} value={this.state.crumbs[n]}
+                  onChange={this.handleChange(n)}>
+            {
+              Object.keys(subObj).map(
+                (child) => <option key={child} value={child}>{child}</option>
+              )
+            }
+          </select>)}
 
       </div>
     }
