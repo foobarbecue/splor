@@ -23,7 +23,7 @@ const SplAddData = () =>
 
 async function readBag (acceptedFile) {
   const bag = await rosopen(acceptedFile)
-  const newPlot = dataPanes.addPlot({ data: [], meta: { fields: [] }, errors: [] }, acceptedFile)
+  const newPlot = dataPanes.addPlot({ data: {}, meta: { fields: [] }, errors: [] }, acceptedFile)
   newPlot.data = {} // todo not great... this was an array, redefining as an object
   console.log(newPlot)
   await bag.readMessages({},
@@ -40,7 +40,7 @@ async function readBag (acceptedFile) {
       } catch {
         newPlot.data[result.topic] = [result.message]
       }
-      session.progress = (result.chunkOffset / result.totalChunks)
+      dataPanes.progress = (result.chunkOffset / result.totalChunks)
     }
   )
 }

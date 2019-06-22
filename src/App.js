@@ -14,13 +14,13 @@ const App = view(() => {
 
   return (
     <div>
-      <SplAddData />
+      <SplAddData/>
       <div style={{
         position: 'fixed',
         top: '0',
         height: '50px',
         width: '100%'
-      }}>splor {session.progress}
+      }}>
       </div>
 
       {dataPanes.all.length > 0 && <div style={{
@@ -36,12 +36,7 @@ const App = view(() => {
         zIndex: 20
         // overflow: 'hidden'
       }}>
-        {dataPanes.all.map(pane =>
-          <SplDataPane
-            key={pane.id}
-            {...pane}
-          />
-        )}
+        <SplDataPane/>
       </div>}
       <div id={'timeline'} style={{
         position: 'absolute',
