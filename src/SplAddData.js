@@ -23,7 +23,7 @@ const SplAddData = view(() =>
 
 async function readBag (acceptedFile) {
   const bag = await rosopen(acceptedFile)
-  const newPlot = dataPanes.addPlot({ data: [], meta: { fields: [] }, errors: [] }, acceptedFile)
+  const newPlot = dataPanes.addPlot({ data: [], meta: { fields: [] }, errors: [] }, acceptedFile, true)
   console.log(newPlot)
   await bag.readMessages({},
     (result) => {

@@ -1,32 +1,31 @@
 import React from 'react'
-import SplPlot from './SplPlot'
+import { OneLineTSPlotView, MultiLineTSPlotView } from './SplPlot'
 import SplPlayer from './SplPlayer'
 import { view } from 'react-easy-state'
 
 const SplDataPane = (props) => {
   switch (props.paneObj.dataType) {
     case 'plot':
-      return <>
-        <SplPlot
+      // This pane is a plot representing one time series
+      return <OneLineTSPlotView
           paneId={props.paneObj.id}
           data={props.paneObj.data}
           meta={props.paneObj.meta}
           fileInfo={props.paneObj.fileInfo}
         />
-      </>
-      break
+
+    case 'multiplot':
+      // This pane is a plot representing multiple time series
+      return <MultiLineTSPlotView />
 
     case 'video':
-      return <>
-        <SplPlayer
+      return <SplPlayer
           key={props.paneObj.id}
           paneObj={props.paneObj}
         />
-      </>
-      break
 
     default:
-      return <div> unknown data pane type </div>
+      return <> Unknown data pane type </>
   }
 }
 

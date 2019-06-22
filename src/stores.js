@@ -36,10 +36,10 @@ export const dataPanes = store(
     get allPlots () {
       return dataPanes.all.filter(dataPane => dataPane.dataType === 'initial')
     },
-    addPlot (plotData, acceptedFile) {
+    addPlot (plotData, acceptedFile, multi = false) {
       const newPlot = {
         id: uuidv4(),
-        dataType: 'plot',
+        dataType: (multi ? 'multiplot' : 'plot'),
         fileInfo: acceptedFile,
         progress: 0.0,
         ...plotData
@@ -47,7 +47,7 @@ export const dataPanes = store(
       dataPanes.all.push(
         newPlot
       )
-      if (plotData.data.length > 0){
+      if (plotData.data.length > 0) {
         eventTimes.cursor = plotData.data[0][plotData.meta.fields[0]] // Set time cursor to first time value in new plot
       }
       return newPlot

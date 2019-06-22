@@ -5,19 +5,6 @@ import { eventTimes } from './stores'
 import { view } from 'react-easy-state'
 import RemoveButton from './RemoveButton'
 
-export default view(function SplPlot (props) {
-  if (props.meta.fields.length === 2) {
-    return <OneLineTSPlot
-      {...props}
-    />
-  } else if (props.meta.fields.length > 2) {
-    return <>Multi-column data is not yet implemented</>
-    // return <MultilineTSPlot
-    // 	{...props}
-    // />
-  }
-})
-
 class OneLineTSPlot extends Component {
   constructor (props) {
     super(props)
@@ -94,4 +81,8 @@ class OneLineTSPlot extends Component {
   }
 }
 
-OneLineTSPlot = view(OneLineTSPlot)
+export const MultiLineTSPlotView = view(()=>
+  <>Multi-column data is not yet implemented</>
+)
+
+export const OneLineTSPlotView = view(OneLineTSPlot)
