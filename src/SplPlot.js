@@ -81,8 +81,4 @@ class OneLineTSPlot extends Component {
   }
 }
 
-export const MultiLineTSPlotView = view(()=>
-  <>Multi-column data is not yet implemented</>
-)
-
 export const OneLineTSPlotView = view(OneLineTSPlot)

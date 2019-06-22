@@ -23,16 +23,29 @@ const SplAddData = view(() =>
 
 async function readBag (acceptedFile) {
   const bag = await rosopen(acceptedFile)
-  const newPlot = dataPanes.addPlot({ data: [], meta: { fields: [] }, errors: [] }, acceptedFile, true)
+  const newPlot = dataPanes.addPlot({ data: {}, meta: { fields: [] }, errors: [] }, acceptedFile, true)
+  newPlot.data = {} // todo not great... this was an array, redefining as an object
   console.log(newPlot)
   await bag.readMessages({},
     (result) => {
-      const progress = (result.chunkOffset / result.totalChunks)
-      console.log(result)
-      console.log(progress)
+      // Add topic to meta fields list
+      if (!newPlot.meta.fields.includes(result.topic)) {
+        newPlot.meta.fields.push(result.topic)
+      }
+
+      // Add rosbag chunk data to store
+      // const resultData = result.data.map((datum) => { return { [result.topic]: datum } })
+      try {
+        newPlot.data[result.topic].push(result.message)
+      } catch {
+        newPlot.data[result.topic] = [result.message]
+      }
+      dataPanes.progress = (result.chunkOffset / result.totalChunks)
+      newPlot.progress = (result.chunkOffset / result.totalChunks)
     }
   )
 }
+
 // TODO: This input parser should be replaced with a plugin-based system
 export function readInp (acceptedFile) {
   if (acceptedFile.name.endsWith('csv')) {

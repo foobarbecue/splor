@@ -28,6 +28,10 @@ span.regionTitle {
     font-weight: bold;
 }
 
+.hidden {
+    display: none;
+}
+
 /*.vis-timeline {*/
 /*    visibility: visible !important;*/
 /*}*/

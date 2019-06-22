@@ -1,5 +1,6 @@
 import React from 'react'
-import { OneLineTSPlotView, MultiLineTSPlotView } from './SplPlot'
+import { OneLineTSPlotView } from './SplPlot'
+import { MultiLineTSPlotView } from './SplMultiPlot'
 import SplPlayer from './SplPlayer'
 import { view } from 'react-easy-state'
 
@@ -16,7 +17,10 @@ const SplDataPane = (props) => {
 
     case 'multiplot':
       // This pane is a plot representing multiple time series
-      return <MultiLineTSPlotView />
+      return <MultiLineTSPlotView
+          key={props.paneObj.id}
+          paneObj={props.paneObj}
+        />
 
     case 'video':
       return <SplPlayer
