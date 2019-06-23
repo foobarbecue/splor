@@ -24,6 +24,27 @@ const getTimelineItemsFromData = (panesData) => {
             group: 'Plots'
           }
         )
+      } else if (Object.keys(paneData.data).length > 0 && paneData.dataType === 'multiplot') { // This actually means rosbag at the moment
+        const paneKeys = Object.keys(paneData.data)
+        const starts = []
+        const ends = []
+        for (let key of paneKeys){
+          if(paneData.data[key][0].hasOwnProperty('header')) {
+            starts.push(paneData.data[key][0].header.stamp.sec)
+            ends.push(paneData.data[key][paneData.data[key].length - 1].header.stamp.sec)
+          }
+        }
+        const earliestStart = new Date(Math.min(...starts) * 1000)
+        const latestEnd = new Date(Math.max(...ends) * 1000)
+        return (
+          {
+            content: paneData.fileInfo.name,
+            start: earliestStart,
+            end: latestEnd,
+            group: 'Plots'
+          }
+        )
+
       } else if (paneData && paneData.dataType === 'video') {
         if (paneData.hasOwnProperty('duration')) {
           return ({
@@ -87,6 +108,7 @@ function SplTimeline (props) {
         Add event at time cursor
       </button>
       <SplIOButtons />
+    <span>{ dataPanes.progress }</span> {/* TODO remove this hack throughout */}
     <Timeline
       ref={timelineRef}
       items={items}
