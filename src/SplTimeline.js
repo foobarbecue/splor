@@ -7,34 +7,34 @@ import { SplIOButtons } from './SplIO'
 /**
  * Collect start and end times of the videos and plot data and convert to visjs timeline format
  */
-const getTimelineItemsFromData = (regionsData) => {
-  if (regionsData.all.length === 0) {
+const getTimelineItemsFromData = (panesData) => {
+  if (panesData.all.length === 0) {
     return []
   }
-  const timelineItems = regionsData.all.map(
-    (regionData) => {
-      if (regionData.data.length > 0 && regionData.dataType === 'plot') {
-        const firstColName = regionData.meta.fields[0]
-        const nRows = regionData.data.length
+  const timelineItems = panesData.all.map(
+    (paneData) => {
+      if (paneData.data.length > 0 && paneData.dataType === 'plot') {
+        const firstColName = paneData.meta.fields[0]
+        const nRows = paneData.data.length
         return (
           {
-            content: regionData.fileInfo.name,
-            start: regionData.data[0][firstColName],
-            end: regionData.data[nRows - 1][firstColName],
+            content: paneData.fileInfo.name,
+            start: paneData.data[0][firstColName],
+            end: paneData.data[nRows - 1][firstColName],
             group: 'Plots'
           }
         )
-      } else if (regionData && regionData.dataType === 'video') {
-        if (regionData.hasOwnProperty('duration')) {
+      } else if (paneData && paneData.dataType === 'video') {
+        if (paneData.hasOwnProperty('duration')) {
           return ({
-            start: regionData.start,
-            end: new Date(regionData.start.getTime() + regionData.duration * 1000),
-            content: regionData.fileInfo.name,
+            start: paneData.start,
+            end: new Date(paneData.start.getTime() + paneData.duration * 1000),
+            content: paneData.fileInfo.name,
             editable: {
               updateTime: true
             },
             group: 'Videos',
-            paneObj: regionData
+            paneObj: paneData
           })
         }
       }
