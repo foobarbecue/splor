@@ -25,25 +25,49 @@ const TopicSelector = view(({data, setTopic})=>
     <span className={"hidden"}>{ dataPanes.progress }</span> {/*TODO hack to make it refresh*/}
   </>)
 
+const MessageSelector = ({data, topic, crumbs, setCrumbs})=> {
+  const input = data[topic]
+  let subObjs = []
+  if (!!input) {
+    const exampleMsg = input[0]
+    const crumbs2 = crumbs.slice() // copy
+    while (crumbs2.length > 0) {
+      subObjs.push(walkCrumbs(exampleMsg, crumbs2))
+      crumbs2.pop()
+    }
+    subObjs.push(exampleMsg)
+    subObjs.reverse()
+  }
+  return subObjs.map((subObj, n) => {
+    if (typeof (subObj) === "object") {
+
+      return <select key={crumbs[n]} value={crumbs[n]}
+                     onChange={(evt)=>{
+                       const crumbs3 = crumbs.slice(0,n)
+                       crumbs3[n] = evt.target.value
+                       setCrumbs(crumbs3)
+                     }}>
+        <option>-- choose --</option>
+        {
+          Object.keys(subObj).map(
+            (child) => <option key={child} value={child}>{child}</option>
+          )
+        }
+      </select>
+    }
+  })
+}
+
+const walkCrumbs = (obj, crumbs) => {
+  return crumbs.reduce((obj, crumb) => obj[crumb], obj)
+}
+
 class WalkFields extends React.Component {
   constructor (props) {
     super(props)
-    this.state = { topic: null, crumbs: [] }
+    this.state = { topic: null, crumbs: [], showPlot: false }
     this.getDataInPlotFormat = this.getDataInPlotFormat.bind(this)
     this.getMetaInPlotFormat = this.getMetaInPlotFormat.bind(this)
-  }
-
-  walkCrumbs = (obj, crumbs) => {
-    return crumbs.reduce((obj, crumb) => obj[crumb], obj)
-  }
-
-  handleChange = (n) =>{
-    const handleChangeWcontext = (evt) => {
-      const crumbs2 = this.state.crumbs.slice(0,n)
-      crumbs2[n] = evt.target.value
-      this.setState({ crumbs: crumbs2 })
-    }
-    return handleChangeWcontext.bind(this)
   }
 
   setTopic = (evt)=>{
@@ -56,7 +80,7 @@ class WalkFields extends React.Component {
         (record, n)=>
           ({
             [meta.fields[0]]: new Date(record.header.stamp.sec * 10e3 + record.header.stamp.nsec / 10e9),
-            [meta.fields[1]]: this.walkCrumbs(record, this.state.crumbs)
+            [meta.fields[1]]: walkCrumbs(record, this.state.crumbs)
           })
       )
   }
@@ -70,49 +94,29 @@ class WalkFields extends React.Component {
       ]}
   }
 
-  render () {
-    const input = this.props.input[this.state.topic]
-    let subObjs = []
-    if (!!input){
-      const exampleMsg = input[0]
-      const crumbs = this.state.crumbs.slice()
-      while (crumbs.length > 0) {
-        subObjs.push(this.walkCrumbs(exampleMsg, crumbs))
-        crumbs.pop()
-      }
-      subObjs.push(exampleMsg)
-      subObjs.reverse()
+  lastCrumbIsPlottable = ()=> {
+    if (this.props.input.hasOwnProperty([this.state.topic])) {
+      return typeof(walkCrumbs(this.props.input[this.state.topic][0], this.state.crumbs)) === "number"
     }
+  }
 
+  render () {
     return <div>
       <TopicSelector
         setTopic = {this.setTopic}
         data = {this.props.input}
       />
-      {subObjs.map((subObj, n) =>{
-        if (typeof(subObj) === "number"){
-          const plotData = this.getDataInPlotFormat()
-          const plotMeta = this.getMetaInPlotFormat()
-          return <OneLineTSPlotView
-            data = {plotData}
-            meta = {plotMeta}
-            fileInfo = {this.props.fileInfo}
-          />}
-        else if (typeof(subObj) === "object"){
-          return <select key={this.state.crumbs[n]} value={this.state.crumbs[n]}
-                  onChange={this.handleChange(n)}>
-            <option>-- choose --</option>
-            {
-              Object.keys(subObj).map(
-                (child) => <option key={child} value={child}>{child}</option>
-              )
-            }
-          </select>
-        }
-        else {
-          return <>not obj or num</>
-        }
-      })}
+      <MessageSelector
+        data = {this.props.input}
+        topic = {this.state.topic}
+        crumbs = {this.state.crumbs}
+        setCrumbs = {(crumbs)=>{this.setState({crumbs:crumbs})}}
+      />
+      {this.lastCrumbIsPlottable() && <OneLineTSPlotView
+        data = {this.getDataInPlotFormat()}
+        meta = {this.getMetaInPlotFormat()}
+        fileInfo = {this.props.fileInfo}
+      />}
     </div>
   }
 }
