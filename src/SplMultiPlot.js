@@ -1,12 +1,14 @@
 import { view } from "react-easy-state"
 import React from 'react'
 import { dataPanes } from './stores'
+import { OneLineTSPlotView } from './SplPlot'
 
 export const MultiLineTSPlotView = view(({paneId, paneObj})=> {
   return <div>
     <span className={"hidden"}>{ dataPanes.progress }</span>
       <WalkFields
         input={paneObj.data}
+        fileInfo={paneObj.fileInfo}
       />
     </div>
   }
@@ -27,6 +29,8 @@ class WalkFields extends React.Component {
   constructor (props) {
     super(props)
     this.state = { topic: null, crumbs: [] }
+    this.getDataInPlotFormat = this.getDataInPlotFormat.bind(this)
+    this.getMetaInPlotFormat = this.getMetaInPlotFormat.bind(this)
   }
 
   walkCrumbs = (obj, crumbs) => {
@@ -45,6 +49,26 @@ class WalkFields extends React.Component {
 
   setTopic = (evt)=>{
     this.setState({topic: evt.target.value, crumbs: []})
+  }
+
+  getDataInPlotFormat(){ // For some reason the Class Properties format wasn't working to set instance context
+    const meta = this.getMetaInPlotFormat()
+    return this.props.input[this.state.topic].map(
+        (record, n)=>
+          ({
+            [meta.fields[0]]: n,
+            [meta.fields[1]]: this.walkCrumbs(record, this.state.crumbs)
+          })
+      )
+  }
+
+  getMetaInPlotFormat(){
+    return {
+      fields: ['timeish',
+        this.state.crumbs.reduce(
+          (acc, elem)=> `${acc}/${elem}`, this.state.topic
+          )
+      ]}
   }
 
   render () {
@@ -67,7 +91,14 @@ class WalkFields extends React.Component {
         data = {this.props.input}
       />
       {subObjs.map((subObj, n) =>{
-        if (typeof(subObj) === "number"){return <>plot</>}
+        if (typeof(subObj) === "number"){
+          const plotData = this.getDataInPlotFormat()
+          const plotMeta = this.getMetaInPlotFormat()
+          return <OneLineTSPlotView
+            data = {plotData}
+            meta = {plotMeta}
+            fileInfo = {this.props.fileInfo}
+          />}
         else if (typeof(subObj) === "object"){
           return <select key={this.state.crumbs[n]} value={this.state.crumbs[n]}
                   onChange={this.handleChange(n)}>
