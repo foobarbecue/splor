@@ -39,7 +39,6 @@ class WalkFields extends React.Component {
 
   handleChange = (n) =>{
     const handleChangeWcontext = (evt) => {
-      console.log(n)
       const crumbs2 = this.state.crumbs.slice(0,n)
       crumbs2[n] = evt.target.value
       this.setState({ crumbs: crumbs2 })
@@ -56,7 +55,7 @@ class WalkFields extends React.Component {
     return this.props.input[this.state.topic].map(
         (record, n)=>
           ({
-            [meta.fields[0]]: n,
+            [meta.fields[0]]: new Date(record.header.stamp.sec * 10e3 + record.header.stamp.nsec / 10e9),
             [meta.fields[1]]: this.walkCrumbs(record, this.state.crumbs)
           })
       )
