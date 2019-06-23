@@ -87,7 +87,7 @@ class WalkFields extends React.Component {
 
   getMetaInPlotFormat(){
     return {
-      fields: ['timeish',
+      fields: ['time',
         this.state.crumbs.reduce(
           (acc, elem)=> `${acc}/${elem}`, this.state.topic
           )
@@ -95,6 +95,8 @@ class WalkFields extends React.Component {
   }
 
   lastCrumbIsPlottable = ()=> {
+    console.log('checking plottable')
+    console.log(this.state.crumbs)
     if (this.props.input.hasOwnProperty([this.state.topic])) {
       return typeof(walkCrumbs(this.props.input[this.state.topic][0], this.state.crumbs)) === "number"
     }
@@ -110,12 +112,13 @@ class WalkFields extends React.Component {
         data = {this.props.input}
         topic = {this.state.topic}
         crumbs = {this.state.crumbs}
-        setCrumbs = {(crumbs)=>{this.setState({crumbs:crumbs})}}
+        setCrumbs = {(crumbs2)=>{this.setState({crumbs:crumbs2})}}
       />
       {this.lastCrumbIsPlottable() && <OneLineTSPlotView
         data = {this.getDataInPlotFormat()}
         meta = {this.getMetaInPlotFormat()}
         fileInfo = {this.props.fileInfo}
+        crumbs = {this.state.crumbs}
       />}
     </div>
   }

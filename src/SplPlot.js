@@ -10,11 +10,7 @@ class OneLineTSPlot extends Component {
     super(props)
     // React-vis wants objects with keys "x" and "y", so rename.
     // Field names are still in props.meta.fields
-    this.data = props.data.map(
-      (row) => ({
-        x: row[props.meta.fields[0]],
-        y: row[props.meta.fields[1]]
-      }))
+
 
     this.state = { xDomain: null, yDomain: null }
   }
@@ -38,6 +34,11 @@ class OneLineTSPlot extends Component {
   }
 
   render () {
+    this.data = this.props.data.map(
+      (row) => ({
+        x: row[this.props.meta.fields[0]],
+        y: row[this.props.meta.fields[1]]
+      }))
     const timeCursor = eventTimes.cursor
     return (
       <div style={{ position: 'relative' }}>
