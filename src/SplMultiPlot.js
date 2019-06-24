@@ -95,8 +95,6 @@ class WalkFields extends React.Component {
   }
 
   lastCrumbIsPlottable = ()=> {
-    console.log('checking plottable')
-    console.log(this.state.crumbs)
     if (this.props.input.hasOwnProperty([this.state.topic])) {
       return typeof(walkCrumbs(this.props.input[this.state.topic][0], this.state.crumbs)) === "number"
     }

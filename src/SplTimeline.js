@@ -93,6 +93,7 @@ function SplTimeline (props) {
 
   useEffect(() => {
     if (timelineRef.current) {
+      timelineRef.current.$el.initialDrawDone = true; // TODO workaround to deal with freezing on first load issue
       timelineRef.current.$el.fit()
     }
   })
