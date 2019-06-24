@@ -3,17 +3,6 @@ import React from 'react'
 import { dataPanes } from './stores'
 import { OneLineTSPlotView } from './SplPlot'
 
-export const MultiLineTSPlotView = view(({paneId, paneObj})=> {
-  return <div>
-    <span className={"hidden"}>{ dataPanes.progress }</span>
-      <WalkFields
-        input={paneObj.data}
-        fileInfo={paneObj.fileInfo}
-      />
-    </div>
-  }
-)
-
 const TopicSelector = view(({data, setTopic})=>
   <>
   <select onChange={setTopic}>
@@ -62,7 +51,7 @@ const walkCrumbs = (obj, crumbs) => {
   return crumbs.reduce((obj, crumb) => obj[crumb], obj)
 }
 
-class WalkFields extends React.Component {
+class MultiLineTSPlot extends React.Component {
   constructor (props) {
     super(props)
     this.state = { topic: null, crumbs: [], showPlot: false }
@@ -113,6 +102,7 @@ class WalkFields extends React.Component {
         setCrumbs = {(crumbs2)=>{this.setState({crumbs:crumbs2})}}
       />
       {this.lastCrumbIsPlottable() && <OneLineTSPlotView
+        paneId = {this.props.paneId}
         data = {this.getDataInPlotFormat()}
         meta = {this.getMetaInPlotFormat()}
         fileInfo = {this.props.fileInfo}
@@ -121,3 +111,5 @@ class WalkFields extends React.Component {
     </div>
   }
 }
+
+export const MultiLineTSPlotView = view(MultiLineTSPlot)
