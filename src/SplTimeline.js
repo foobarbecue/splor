@@ -123,6 +123,7 @@ function SplTimeline (props) {
       timechangeHandler={(newTime) => {
         eventTimes.cursor = newTime.time
       }}
+      clickHandler={(evt)=>{eventTimes.cursor = evt.time}}
     />
   </>
 }
