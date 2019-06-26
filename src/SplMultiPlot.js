@@ -68,7 +68,7 @@ class MultiLineTSPlot extends React.Component {
     return this.props.input[this.state.topic].map(
         (record, n)=>
           ({
-            [meta.fields[0]]: new Date(record.header.stamp.sec * 10e3 + record.header.stamp.nsec / 10e9),
+            [meta.fields[0]]: new Date(record.header.stamp.sec * 10e2 + record.header.stamp.nsec / 10e5),
             [meta.fields[1]]: walkCrumbs(record, this.state.crumbs)
           })
       )
