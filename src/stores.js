@@ -26,22 +26,31 @@ export const eventTimes = store({
   }
 })
 
+export const session = store({
+  id: uuidv4()
+})
+
 export const dataPanes = store(
   {
     all: [],
     get allPlots () {
       return dataPanes.all.filter(dataPane => dataPane.dataType === 'initial')
     },
-    addPlot (plotData, acceptedFile) {
+    addPlot (plotData, acceptedFile, multi = false) {
+      const newPlot = {
+        id: uuidv4(),
+        dataType: (multi ? 'multiplot' : 'plot'),
+        fileInfo: acceptedFile,
+        progress: 0.0,
+        ...plotData
+      }
       dataPanes.all.push(
-        {
-          id: uuidv4(),
-          dataType: 'plot',
-          fileInfo: acceptedFile,
-          ...plotData
-        }
+        newPlot
       )
-      eventTimes.cursor = plotData.data[0][plotData.meta.fields[0]] // Set time cursor to first time value in new plot
+      if (plotData.data.length > 0) {
+        eventTimes.cursor = plotData.data[0][plotData.meta.fields[0]] // Set time cursor to first time value in new plot
+      }
+      return newPlot
     },
     addVid (vidDataUrl, acceptedFile) {
       dataPanes.all.push(
@@ -49,6 +58,7 @@ export const dataPanes = store(
           id: uuidv4(),
           dataType: 'video',
           fileInfo: acceptedFile,
+          progress: 0.0,
           data: vidDataUrl,
           start: new Date(eventTimes.cursor) // Copy the cursor time for default video start time
         }

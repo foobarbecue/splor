@@ -24,8 +24,12 @@ img.timeAnchor {
     height: 1em;
 }
 
-span.regionTitle {
+span.paneTitle {
     font-weight: bold;
+}
+
+.hidden {
+    display: none;
 }
 
 /*.vis-timeline {*/

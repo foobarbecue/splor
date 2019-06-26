@@ -14,7 +14,7 @@ const App = view(() => {
 
   return (
     <div>
-      <SplAddData/>
+      <SplAddData />
       <div style={{
         position: 'fixed',
         top: '0',

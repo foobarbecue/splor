@@ -5,29 +5,12 @@ import { eventTimes } from './stores'
 import { view } from 'react-easy-state'
 import RemoveButton from './RemoveButton'
 
-export default view(function SplPlot (props) {
-  if (props.meta.fields.length === 2) {
-    return <OneLineTSPlot
-      {...props}
-    />
-  } else if (props.meta.fields.length > 2) {
-    return <>Multi-column data is not yet implemented</>
-    // return <MultilineTSPlot
-    // 	{...props}
-    // />
-  }
-})
-
 class OneLineTSPlot extends Component {
   constructor (props) {
     super(props)
     // React-vis wants objects with keys "x" and "y", so rename.
     // Field names are still in props.meta.fields
-    this.data = props.data.map(
-      (row) => ({
-        x: row[props.meta.fields[0]],
-        y: row[props.meta.fields[1]]
-      }))
+
 
     this.state = { xDomain: null, yDomain: null }
   }
@@ -51,6 +34,11 @@ class OneLineTSPlot extends Component {
   }
 
   render () {
+    this.data = this.props.data.map(
+      (row) => ({
+        x: row[this.props.meta.fields[0]],
+        y: row[this.props.meta.fields[1]]
+      }))
     const timeCursor = eventTimes.cursor
     return (
       <div style={{ position: 'relative' }}>
@@ -94,4 +82,4 @@ class OneLineTSPlot extends Component {
   }
 }
 
-OneLineTSPlot = view(OneLineTSPlot)
+export const OneLineTSPlotView = view(OneLineTSPlot)
