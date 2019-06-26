@@ -4,7 +4,6 @@ import { dataPanes } from './stores'
 export default function RemoveButton (props) {
   return <div
     onClick={() => {
-      console.log('clickt')
       dataPanes.removePane(props.paneId)
     }}
     style={{
