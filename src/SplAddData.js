@@ -26,6 +26,7 @@ async function readBag (acceptedFile) {
   const newPlot = dataPanes.addPlot({ data: {}, meta: { fields: [] }, errors: [] }, acceptedFile, true)
   newPlot.data = {} // todo not great... this was an array, redefining as an object
   console.log(newPlot)
+  dataPanes.progress = 0
   await bag.readMessages({},
     (result) => {
       // Add topic to meta fields list
@@ -44,6 +45,7 @@ async function readBag (acceptedFile) {
       newPlot.progress = (result.chunkOffset / result.totalChunks)
     }
   )
+  dataPanes.progress = 100
 }
 
 // TODO: This input parser should be replaced with a plugin-based system
