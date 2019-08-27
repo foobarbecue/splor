@@ -3,16 +3,16 @@ import React from 'react'
 import { dataPanes } from './stores'
 import { OneLineTSPlotView } from './SplPlot'
 
-const TopicSelector = view(({data, setTopic})=>
+const TopicSelectorNV = ({data, setTopic})=>
   <>
   <select onChange={setTopic}>
-    <option>-- choose --</option>
+    <option key={'choose'}>-- choose -- { dataPanes.progress }</option>
     {Object.keys(data).map(
       (child) => <option key={child} value={child}>{child}</option>
     )}
   </select>
-    <span className={"hidden"}>{ dataPanes.progress }</span> {/*TODO hack to make it refresh*/}
-  </>)
+  </>
+const TopicSelector = view(TopicSelectorNV)
 
 const MessageSelector = ({data, topic, crumbs, setCrumbs})=> {
   const input = data[topic]
@@ -36,7 +36,7 @@ const MessageSelector = ({data, topic, crumbs, setCrumbs})=> {
                        crumbs3[n] = evt.target.value
                        setCrumbs(crumbs3)
                      }}>
-        <option>-- choose --</option>
+        <option key={'choose'}>-- choose --</option>
         {
           Object.keys(subObj).map(
             (child) => <option key={child} value={child}>{child}</option>
