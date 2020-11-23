@@ -64,6 +64,18 @@ export const dataPanes = store(
         }
       )
     },
+    addWebVid (vidDataUrl) {
+      dataPanes.all.push(
+        {
+          id: uuidv4(),
+          dataType: 'video',
+          fileInfo: vidDataUrl,
+          progress: 0.0,
+          data: vidDataUrl,
+          start: new Date(eventTimes.cursor) // Copy the cursor time for default video start time
+        }
+      )
+    },
     removePane (idToRemove) {
       dataPanes.all = dataPanes.all.filter(
         (item) => {

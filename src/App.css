@@ -32,6 +32,11 @@ span.paneTitle {
     display: none;
 }
 
+#ytVidChooser {
+    position: fixed;
+    right: 300px;
+}
+
 /*.vis-timeline {*/
 /*    visibility: visible !important;*/
 /*}*/

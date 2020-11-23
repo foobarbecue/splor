@@ -6,6 +6,7 @@ import { view } from 'react-easy-state'
 
 const SplAddData = view(() =>
   <div style={{ height: '100%', width: '100%', position: 'relative', 'zIndex': 10, direction: 'rtl' }}>
+      <div>
     <input
       type={'file'}
       name={'uploadChooser'}
@@ -18,7 +19,17 @@ const SplAddData = view(() =>
       }}
       style={{ position: 'fixed', width: '100%', height: '100%' }}
     />
-
+    <input
+      id={'ytVidChooser'}
+      type={'button'}
+      onClick={() => {
+          dataPanes.addWebVid(
+              prompt('Enter URL of the youtube video')
+          )
+      }}
+      value={'Add YT video'}
+    />
+      </div>
   </div>)
 
 async function readBag (acceptedFile) {
