@@ -1,6 +1,7 @@
 import React from 'react'
 import { OneLineTSPlotView } from './SplPlot'
 import { MultiLineTSPlotView } from './SplMultiPlot'
+import { SpatialMap } from './SplSpatialMap'
 import SplPlayer from './SplPlayer'
 import { view } from 'react-easy-state'
 import { dataPanes } from './stores'
@@ -31,6 +32,9 @@ const SplDataPane = (props) => {
           key={props.paneObj.id}
           paneObj={props.paneObj}
         />
+        
+    case 'spatialmap':
+      return <SpatialMap />
 
     default:
       return <> Unknown data pane type </>

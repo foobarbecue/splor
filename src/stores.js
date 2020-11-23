@@ -76,6 +76,17 @@ export const dataPanes = store(
         }
       )
     },
+    addSpatialMap (mapDataUrl){
+      dataPanes.all.push(
+        {
+          id: uuidv4(),
+          dataType: 'spatialmap',
+          fileInfo: mapDataUrl,
+          data: mapDataUrl,
+          start: new Date(eventTimes.cursor) // Copy the cursor time for default video start time          
+        }
+      )
+    },
     removePane (idToRemove) {
       dataPanes.all = dataPanes.all.filter(
         (item) => {
