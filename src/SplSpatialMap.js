@@ -1,4 +1,4 @@
-import react, { Component } from 'react'
+import React, { Component } from 'react'
 import { Layer } from 'mobility-toolbox-js/ol';
 import Tile from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
@@ -21,9 +21,8 @@ class SpatialMap extends Component {
     this.spatialMap = spatialMap
   }
   
-  render () {
-    <BasicMap layers={this.layers} tabIndex={0} />;
-  }
+  render = () =>
+    <BasicMap layers={this.layers} style={{'height': '100%'}} tabIndex={0} />
   
 }
 

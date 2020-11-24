@@ -1,7 +1,7 @@
 import React from 'react'
 import { OneLineTSPlotView } from './SplPlot'
 import { MultiLineTSPlotView } from './SplMultiPlot'
-import { SpatialMap } from './SplSpatialMap'
+import SpatialMap from './SplSpatialMap'
 import SplPlayer from './SplPlayer'
 import { view } from 'react-easy-state'
 import { dataPanes } from './stores'

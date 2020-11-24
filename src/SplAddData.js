@@ -76,7 +76,7 @@ export function readInp (acceptedFile) {
     alert('sqlite not yet implemented, sorry')
   } else if (acceptedFile.name.endsWith('gpx')){
     alert('adding map')
-    dataPanes.addSpatialMap()
+    dataPanes.addSpatialMap(URL.createObjectURL(acceptedFile))
   } else {
     const vidDataUrl = URL.createObjectURL(acceptedFile)
     dataPanes.addVid(vidDataUrl, acceptedFile)
