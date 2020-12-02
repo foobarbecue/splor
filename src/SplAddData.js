@@ -3,6 +3,7 @@ import Papa from '@foobarbecue/papaparse'
 import { open as rosopen } from 'rosbag'
 import { dataPanes } from './stores'
 import { view } from 'react-easy-state'
+import GPS from 'ol/format/gpx'
 
 const SplAddData = view(() =>
   <div style={{ height: '100%', width: '100%', position: 'relative', 'zIndex': 10, direction: 'rtl' }}>
@@ -31,6 +32,10 @@ const SplAddData = view(() =>
     />
       </div>
   </div>)
+
+function readSesh (acceptedFile) {
+// not yet implemented
+}
 
 async function readBag (acceptedFile) {
   const bag = await rosopen(acceptedFile)
@@ -70,13 +75,14 @@ export function readInp (acceptedFile) {
       comments: '//'
     }
     )
-  } else if (acceptedFile.name.endsWith('bag')) {
+  } else if (acceptedFile.name.toLowerCase().endsWith('bag')) {
     readBag(acceptedFile)
-  } else if (acceptedFile.name.endsWith('sqlite')) {
+  } else if (acceptedFile.name.toLowerCase().endsWith('sqlite')) {
     alert('sqlite not yet implemented, sorry')
-  } else if (acceptedFile.name.endsWith('gpx')){
-    alert('adding map')
+  } else if (acceptedFile.name.toLowerCase().endsWith('gpx')){
     dataPanes.addSpatialMap(URL.createObjectURL(acceptedFile))
+  } else if (acceptedFile.name.toLowerCase().endsWith('session')){
+    readSesh(acceptedFile)
   } else {
     const vidDataUrl = URL.createObjectURL(acceptedFile)
     dataPanes.addVid(vidDataUrl, acceptedFile)
